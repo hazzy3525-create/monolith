@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>МОНОЛИТ — AI-оператор для твоего дела</title>
+  <meta name="description" content="Напиши или скажи одной фразой — МОНОЛИТ сам создаст заказ, клиента, этапы с напоминаниями и посчитает деньги. AI-оператор для фрилансеров и малых команд. Уже работает на Android." />
+  <meta name="theme-color" content="#0D0D0D" />
+  <link rel="icon" type="image/png" href="assets/avatar.png" />
+  <link rel="apple-touch-icon" href="assets/avatar.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="МОНОЛИТ — AI-оператор для твоего дела" />
+  <meta property="og:description" content="Хаос съедает твоё дело. МОНОЛИТ наводит порядок: заказ, клиент, этапы, финансы — из одной фразы. Дальше — ассистент прямо в твоих рабочих чатах." />
+  <meta property="og:url" content="https://hazzy3525-create.github.io/monolith/" />
+  <meta property="og:image" content="https://hazzy3525-create.github.io/monolith/assets/og.jpg" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://hazzy3525-create.github.io/monolith/assets/og.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --text: #f5f4f2;
+      --muted: #a5a2b0;
+      --faint: #8a87a0;
+      --primary: #6c63ff;
+      --primary-strong: #7d75ff;
+      --card: rgba(108, 99, 255, 0.07);
+      --card-deep: rgba(108, 99, 255, 0.12);
+      --border: rgba(108, 99, 255, 0.28);
+      --border-soft: rgba(108, 99, 255, 0.16);
+      --positive: #34c77b;
+      --r-lg: 20px;
+      --r-md: 14px;
+      --r-pill: 100px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: rgba(108, 99, 255, 0.35); }
+
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.12; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary-strong);
+      margin-bottom: 18px;
+    }
+
+    .num { font-variant-numeric: tabular-nums; }
+
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid rgba(108, 99, 255, 0.55);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    /* ── Кнопки ─────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 30px;
+      border-radius: var(--r-pill);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--primary-strong);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 34px rgba(108, 99, 255, 0.35);
+    }
+    .btn-ghost {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: var(--card-deep); transform: translateY(-1px); }
+
+    /* ── Навбар ─────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(13, 13, 13, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom-color: var(--border-soft);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: 0.02em;
+    }
+    .nav-logo img { width: 34px; height: 34px; border-radius: 9px; }
+    .nav .btn { min-height: 42px; padding: 0 22px; font-size: 15px; }
+
+    /* ── Hero ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      padding: 158px 0 96px;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      top: -180px;
+      left: 50%;
+      width: 1100px;
+      height: 780px;
+      margin-left: -550px;
+      background: radial-gradient(closest-side, rgba(108, 99, 255, 0.22) 0%, rgba(108, 99, 255, 0.07) 45%, transparent 72%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(38px, 5.2vw, 62px);
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+    .hero h1 .hl { color: var(--primary-strong); }
+    .hero-sub {
+      font-size: 19px;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 30px; }
+    .hero-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14.5px;
+      color: var(--faint);
+    }
+    .hero-note .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--positive);
+      flex: none;
+    }
+
+    /* Телефон */
+    .phone-zone { position: relative; display: flex; justify-content: center; }
+    .phone-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 620px; height: 760px;
+      margin: -380px 0 0 -310px;
+      background: radial-gradient(closest-side, rgba(108, 99, 255, 0.26) 0%, rgba(108, 99, 255, 0.08) 48%, transparent 72%);
+      pointer-events: none;
+    }
+    .phone {
+      position: relative;
+      width: 290px;
+      border-radius: 42px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 11px;
+      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+    }
+    .phone img {
+      display: block;
+      width: 100%;
+      border-radius: 32px;
+      aspect-ratio: 1080 / 2400;
+      object-fit: cover;
+    }
+    .phone-chip {
+      position: absolute;
+      right: -26px;
+      bottom: 78px;
+      padding: 12px 22px;
+      border-radius: var(--r-pill);
+      background: var(--primary);
+      color: #fff;
+      font-size: 14.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      box-shadow: 0 14px 38px rgba(108, 99, 255, 0.4);
+    }
+
+    /* ── Секции ─────────────────────────────────────────── */
+    section { padding: 96px 0; }
+    .sec-head { max-width: 640px; margin-bottom: 56px; }
+    .sec-head h2 { font-size: clamp(30px, 3.6vw, 42px); font-weight: 700; margin-bottom: 16px; }
+    .sec-head p { color: var(--muted); font-size: 18px; }
+    .sec-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+    /* ── Демо: фраза → карточка ─────────────────────────── */
+    .demo-flow { max-width: 720px; margin: 0 auto; }
+    .demo-input {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 24px 28px;
+    }
+    .demo-spark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px; height: 46px;
+      border-radius: 14px;
+      background: var(--card-deep);
+      color: var(--primary-strong);
+      flex: none;
+    }
+    .demo-text {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text);
+      min-height: 1.5em;
+    }
+    .demo-text .kw { color: var(--primary-strong); font-weight: 600; }
+    .demo-caret {
+      display: inline-block;
+      width: 2px;
+      height: 1.05em;
+      margin-left: 2px;
+      background: var(--text);
+      vertical-align: text-bottom;
+    }
+    .demo-arrow {
+      display: flex;
+      justify-content: center;
+      padding: 22px 0;
+      color: var(--primary-strong);
+    }
+    .demo-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 34px 38px 20px;
+    }
+    .demo-card-chip {
+      display: inline-block;
+      padding: 8px 18px;
+      border-radius: var(--r-pill);
+      background: var(--card-deep);
+      color: var(--primary-strong);
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .demo-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .demo-row:last-child { border-bottom: none; }
+    .demo-row .lbl { color: var(--muted); font-size: 15.5px; }
+    .demo-row .val { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+    .demo-row .val.accent { color: var(--primary-strong); font-weight: 700; }
+    .demo-checks { display: inline-flex; gap: 6px; margin-left: 10px; vertical-align: -3px; }
+    .demo-checks svg { width: 19px; height: 19px; }
+
+    /* ── Видео ──────────────────────────────────────────── */
+    .video-frame {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 12px;
+      max-width: 940px;
+      margin: 0 auto;
+    }
+    .video-frame video {
+      display: block;
+      width: 100%;
+      border-radius: 12px;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    /* ── Фичи ───────────────────────────────────────────── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--r-lg);
+      padding: 30px 28px;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+    .feature:hover {
+      transform: translateY(-3px);
+      border-color: var(--border);
+      background: var(--card-deep);
+    }
+    .feature-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: var(--card-deep);
+      color: var(--primary-strong);
+      margin-bottom: 20px;
+    }
+    .feature h3 { font-size: 19px; font-weight: 600; margin-bottom: 10px; }
+    .feature p { color: var(--muted); font-size: 15.5px; }
+
+    /* ── Роадмап ────────────────────────────────────────── */
+    .tag-soon {
+      display: inline-block;
+      padding: 5px 13px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border);
+      color: var(--primary-strong);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .roadmap-note {
+      margin-top: 34px;
+      text-align: center;
+      color: var(--faint);
+      font-size: 15px;
+    }
+    .roadmap-note a { color: var(--muted); }
+    .roadmap-note a:hover { color: var(--text); }
+
+    /* ── Безопасность ───────────────────────────────────── */
+    .security {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 36px;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 52px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .security-glow {
+      position: absolute;
+      top: -160px; right: -120px;
+      width: 520px; height: 460px;
+      background: radial-gradient(closest-side, rgba(108, 99, 255, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+    .security-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 88px; height: 88px;
+      border-radius: 24px;
+      background: var(--card-deep);
+      color: var(--primary-strong);
+      flex: none;
+    }
+    .security h2 { font-size: clamp(26px, 3vw, 34px); font-weight: 700; margin-bottom: 12px; }
+    .security p { color: var(--muted); max-width: 640px; }
+    .security .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .security .chip {
+      padding: 9px 18px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border);
+      color: var(--primary-strong);
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    /* ── Скриншоты ──────────────────────────────────────── */
+    .screens {
+      display: flex;
+      justify-content: center;
+      gap: 72px;
+      flex-wrap: wrap;
+    }
+    .screen-item { text-align: center; }
+    .screen-item .phone { width: 264px; margin: 0 auto 22px; }
+    .screen-item .cap { color: var(--muted); font-size: 15.5px; font-weight: 500; }
+
+    /* ── Финальный CTA ──────────────────────────────────── */
+    .final {
+      position: relative;
+      text-align: center;
+      padding: 130px 0 140px;
+      overflow: hidden;
+    }
+    .final-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 900px; height: 700px;
+      margin: -350px 0 0 -450px;
+      background: radial-gradient(closest-side, rgba(108, 99, 255, 0.2) 0%, rgba(108, 99, 255, 0.06) 50%, transparent 72%);
+      pointer-events: none;
+    }
+    .final img { width: 96px; height: 96px; border-radius: 24px; margin-bottom: 30px; position: relative; }
+    .final h2 { font-size: clamp(32px, 4.4vw, 52px); font-weight: 800; margin-bottom: 30px; position: relative; }
+    .final .btn { position: relative; }
+    .final-sub { margin-top: 18px; color: var(--faint); font-size: 15px; position: relative; }
+
+    /* ── Футер ──────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 40px 0 48px;
+      color: var(--faint);
+      font-size: 14px;
+    }
+    .footer-inner { display: flex; flex-direction: column; gap: 8px; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ── Reveal-анимации ────────────────────────────────── */
+    .rv {
+      opacity: 0;
+      transform: translateY(26px);
+      filter: blur(5px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--d, 0s);
+    }
+    .rv.in { opacity: 1; transform: none; filter: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .rv { opacity: 1; transform: none; filter: none; transition: none; }
+      .btn, .feature { transition: none; }
+    }
+
+    /* ── Адаптив ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      section { padding: 72px 0; }
+      .hero { padding: 132px 0 72px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 64px; }
+      .hero-sub { max-width: none; }
+      .features { grid-template-columns: 1fr 1fr; }
+      .security { grid-template-columns: 1fr; padding: 40px 32px; }
+      .screens { gap: 40px; }
+    }
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      .features { grid-template-columns: 1fr; }
+      .demo-input { padding: 20px; }
+      .demo-card { padding: 26px 22px 14px; }
+      .demo-row .val { font-size: 17px; }
+      .phone-chip { right: 4px; }
+      .hero-cta .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Навбар -->
+  <nav class="nav" id="nav" aria-label="Основная навигация">
+    <div class="wrap nav-inner">
+      <a class="nav-logo" href="#top" aria-label="МОНОЛИТ — на главную">
+        <img src="assets/avatar.png" alt="" width="34" height="34" />
+        МОНОЛИТ
+      </a>
+      <a class="btn btn-primary" href="https://t.me/monolithappru" target="_blank" rel="noopener">Тестировать</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="top">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow rv">AI-оператор для твоего дела</span>
+        <h1 class="rv" style="--d:.06s">Хаос съедает твоё дело. <span class="hl">МОНОЛИТ</span> наводит порядок.</h1>
+        <p class="hero-sub rv" style="--d:.12s">Напиши или скажи одной фразой — ассистент сам создаст заказ, клиента, этапы с напоминаниями и посчитает деньги. Без форм, таблиц и потерянных чатов.</p>
+        <div class="hero-cta rv" style="--d:.18s">
+          <a class="btn btn-primary" href="https://t.me/monolithappru" target="_blank" rel="noopener">Тестировать первым</a>
+          <a class="btn btn-ghost" href="#video">Смотреть ролик · 35 сек</a>
+        </div>
+        <p class="hero-note rv" style="--d:.24s"><span class="dot" aria-hidden="true"></span>Уже работает на Android. Бесплатно на этапе беты.</p>
+      </div>
+      <div class="phone-zone rv" style="--d:.2s">
+        <div class="phone-glow" aria-hidden="true"></div>
+        <div class="phone">
+          <img src="assets/work_board.png" alt="Экран приложения МОНОЛИТ: доска заказов с карточками проектов" />
+          <span class="phone-chip num">Доска · Финансы · Команда</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Демо: фраза → структура -->
+  <section aria-labelledby="demo-title">
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <span class="eyebrow">Ввод без форм</span>
+        <h2 id="demo-title">Одна фраза. Готовый проект.</h2>
+        <p>Никаких форм и полей. Пишешь или говоришь как человеку — получаешь структуру.</p>
+      </div>
+      <div class="demo-flow">
+        <div class="demo-input rv" style="--d:.08s">
+          <span class="demo-spark" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="m12 7 1.2 2.8L16 11l-2.8 1.2L12 15l-1.2-2.8L8 11l2.8-1.2z"/></svg>
+          </span>
+          <p class="demo-text" id="demo-text" aria-label="«Запиши заказ для НеоСферы, бюджет 350 тысяч, дедлайн 28 октября»"></p>
+        </div>
+        <div class="demo-arrow rv" style="--d:.16s" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        </div>
+        <div class="demo-card rv" style="--d:.24s">
+          <span class="demo-card-chip">Новый заказ</span>
+          <div class="demo-row"><span class="lbl">Клиент</span><span class="val">НеоСфера</span></div>
+          <div class="demo-row"><span class="lbl">Бюджет</span><span class="val accent num" id="demo-money" data-target="350000">0 ₽</span></div>
+          <div class="demo-row"><span class="lbl">Дедлайн</span><span class="val">28 октября</span></div>
+          <div class="demo-row">
+            <span class="lbl">Этапы · напоминания</span>
+            <span class="val accent num">4
+              <span class="demo-checks" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgba(108,99,255,.35)"/><path d="m8.5 12.2 2.4 2.4 4.6-5.2"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgba(108,99,255,.35)"/><path d="m8.5 12.2 2.4 2.4 4.6-5.2"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgba(108,99,255,.35)"/><path d="m8.5 12.2 2.4 2.4 4.6-5.2"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgba(108,99,255,.35)"/><path d="m8.5 12.2 2.4 2.4 4.6-5.2"/></svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Видео -->
+  <section id="video" aria-labelledby="video-title">
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <span class="eyebrow">Имиджевый ролик</span>
+        <h2 id="video-title">35 секунд — от хаоса к порядку</h2>
+      </div>
+      <div class="video-frame rv" style="--d:.1s">
+        <video controls preload="metadata" playsinline poster="assets/poster.jpg">
+          <source src="assets/promo.mp4" type="video/mp4" />
+          Ваш браузер не поддерживает видео. <a href="assets/promo.mp4">Скачать ролик</a>.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- Возможности -->
+  <section aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">Всё в одном месте</span>
+        <h2 id="features-title">Один инструмент закрывает дело целиком</h2>
+        <p>Заказы, деньги, команда и клиенты — без таблиц, чатов с самим собой и заметок «на потом».</p>
+      </div>
+      <div class="features">
+        <article class="feature rv">
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span>
+          <h3>Заказы и этапы</h3>
+          <p>Доска проектов со статусами, приоритетами и дедлайнами. Этапы создаются сами — из твоей фразы.</p>
+        </article>
+        <article class="feature rv" style="--d:.06s">
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5Z"/><path d="M16 12h.01"/><path d="M3 9h18"/></svg></span>
+          <h3>Финансы без бухгалтера</h3>
+          <p>Доход, расход, налог, зарплаты команды и чистая прибыль — считаются автоматически по каждому заказу.</p>
+        </article>
+        <article class="feature rv" style="--d:.12s">
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <h3>Команда и роли</h3>
+          <p>Назначай людей на заказы одной фразой. МОНОЛИТ сам учтёт их гонорары в расходах проекта.</p>
+        </article>
+        <article class="feature rv">
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3a2 2 0 0 1-2-2V2"/><path d="M9 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7l5 5v9a2 2 0 0 1-2 2Z"/><path d="M3 8v12a2 2 0 0 0 2 2h12"/></svg></span>
+          <h3>Досье клиентов</h3>
+          <p>История заказов, суммы и договорённости по каждому клиенту — в одной карточке, а не в десяти чатах.</p>
+        </article>
+        <article class="feature rv" style="--d:.06s">
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span>
+          <h3>Утренний дайджест</h3>
+          <p>Каждое утро — что сегодня горит, кто ждёт ответа и сколько денег в работе. Дело под контролем до первого кофе.</p>
+        </article>
+        <article class="feature rv" style="--d:.12s">
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
+          <h3>Напоминания сами ставятся</h3>
+          <p>Сказал «дедлайн 28 октября» — напоминания об этапах уже в календаре. Ничего не забудется.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Безопасность -->
+  <section aria-labelledby="security-title">
+    <div class="wrap">
+      <div class="security rv">
+        <div class="security-glow" aria-hidden="true"></div>
+        <div class="security-icon" aria-hidden="true">
+          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M9.5 12l2 2 3.5-4"/></svg>
+        </div>
+        <div>
+          <h2 id="security-title">Шифрование, где ключ — только у тебя</h2>
+          <p>Zero-knowledge архитектура: база данных живёт на твоём устройстве, а облачная синхронизация видит только зашифрованные блоки. Ни сервер, ни мы не можем прочитать твои заказы и суммы.</p>
+          <div class="chips">
+            <span class="chip">Zero-Knowledge</span>
+            <span class="chip">Локальная база</span>
+            <span class="chip">Синхронизация проверена end-to-end</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Скриншоты -->
+  <section aria-labelledby="screens-title">
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <span class="eyebrow">Живой продукт, не концепт</span>
+        <h2 id="screens-title">Это настоящие экраны приложения</h2>
+      </div>
+      <div class="screens">
+        <div class="screen-item rv">
+          <div class="phone">
+            <img src="assets/work_board.png" alt="Скриншот: доска заказов МОНОЛИТ — карточки проектов со статусами" loading="lazy" />
+          </div>
+          <p class="cap">Доска проектов</p>
+        </div>
+        <div class="screen-item rv" style="--d:.1s">
+          <div class="phone">
+            <img src="assets/finance.png" alt="Скриншот: финансы МОНОЛИТ — прибыль, доходы, расходы и прогноз" loading="lazy" />
+          </div>
+          <p class="cap num">Финансы: доход · расход · прибыль</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Роадмап: ассистент там, где твои клиенты -->
+  <section aria-labelledby="roadmap-title">
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <span class="eyebrow">Куда растёт МОНОЛИТ</span>
+        <h2 id="roadmap-title">Дальше — ассистент там, где твои клиенты</h2>
+        <p>Заказы рождаются в переписках. Поэтому следующий шаг — агент, который живёт прямо в твоих рабочих чатах и ведёт дело за тебя.</p>
+      </div>
+      <div class="features">
+        <article class="feature rv">
+          <span class="tag-soon">В разработке</span>
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span>
+          <h3>Ассистент в мессенджерах</h3>
+          <p>Перешли переписку с клиентом — МОНОЛИТ сам вытащит из неё договорённости, суммы и сроки в карточку заказа.</p>
+        </article>
+        <article class="feature rv" style="--d:.06s">
+          <span class="tag-soon">В разработке</span>
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span>
+          <h3>Бот в рабочих чатах</h3>
+          <p>Подключаешь бота к чату с клиентом или командой — он сам фиксирует заказы, правки и дедлайны в базу, пока ты работаешь.</p>
+        </article>
+        <article class="feature rv" style="--d:.12s">
+          <span class="tag-soon">В разработке</span>
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span>
+          <h3>Интеграции и API</h3>
+          <p>Открытое API и связки с инструментами, которыми ты уже пользуешься. МОНОЛИТ становится операционной системой твоего дела.</p>
+        </article>
+      </div>
+      <p class="roadmap-note rv">Строим открыто — прогресс каждую неделю в <a href="https://t.me/monolithappru" target="_blank" rel="noopener">канале разработки</a>.</p>
+    </div>
+  </section>
+
+  <!-- Финальный CTA -->
+  <section class="final" aria-labelledby="final-title">
+    <div class="final-glow" aria-hidden="true"></div>
+    <div class="wrap">
+      <img class="rv" src="assets/avatar.png" alt="" width="96" height="96" />
+      <h2 id="final-title" class="rv" style="--d:.08s">МОНОЛИТ. Моё дело.</h2>
+      <a class="btn btn-primary rv" style="--d:.16s" href="https://t.me/monolithappru" target="_blank" rel="noopener">Тестируй первым в Telegram</a>
+      <p class="final-sub rv" style="--d:.22s">Бесплатно на этапе беты · APK по запросу в канале</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© 2026 МОНОЛИТ · Основатель — Савелий Бубнов · <a href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">@sbphotoshoter</a> · <a href="https://t.me/monolithappru" target="_blank" rel="noopener">t.me/monolithappru</a></span>
+      <span>Музыка в ролике: Envision — Kevin MacLeod (incompetech.com) · CC BY 4.0</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* Навбар: стекло после скролла */
+      var nav = document.getElementById("nav");
+      var onScroll = function () {
+        nav.classList.toggle("scrolled", window.scrollY > 12);
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      /* Reveal по скроллу */
+      var revealed = document.querySelectorAll(".rv");
+      if ("IntersectionObserver" in window && !reduced) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
+        revealed.forEach(function (el) { io.observe(el); });
+      } else {
+        revealed.forEach(function (el) { el.classList.add("in"); });
+      }
+
+      /* Печать команды (один раз при появлении) */
+      var demoText = document.getElementById("demo-text");
+      var SEGS = [
+        { t: "«Запиши заказ для НеоСферы, бюджет ", kw: false },
+        { t: "350 тысяч", kw: true },
+        { t: ", дедлайн ", kw: false },
+        { t: "28 октября", kw: true },
+        { t: "»", kw: false }
+      ];
+      function renderInstant() {
+        SEGS.forEach(function (s) {
+          var span = document.createElement("span");
+          if (s.kw) span.className = "kw";
+          span.textContent = s.t;
+          demoText.appendChild(span);
+        });
+      }
+      function typeDemo() {
+        var spans = SEGS.map(function (s) {
+          var span = document.createElement("span");
+          if (s.kw) span.className = "kw";
+          demoText.appendChild(span);
+          return span;
+        });
+        var caret = document.createElement("span");
+        caret.className = "demo-caret";
+        demoText.appendChild(caret);
+        var si = 0, ci = 0;
+        var timer = setInterval(function () {
+          if (si >= SEGS.length) {
+            clearInterval(timer);
+            setTimeout(function () { caret.remove(); }, 1600);
+            return;
+          }
+          spans[si].textContent += SEGS[si].t.charAt(ci);
+          ci++;
+          if (ci >= SEGS[si].t.length) { si++; ci = 0; }
+        }, 38);
+      }
+
+      /* Счётчик денег */
+      var money = document.getElementById("demo-money");
+      function fmt(v) {
+        return Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽";
+      }
+      function countMoney() {
+        var target = parseInt(money.getAttribute("data-target"), 10);
+        var t0 = performance.now(), dur = 1100;
+        function tick(now) {
+          var p = Math.min((now - t0) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          money.textContent = fmt(target * eased);
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      if (reduced || !("IntersectionObserver" in window)) {
+        renderInstant();
+        money.textContent = fmt(350000);
+      } else {
+        var demoIo = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            if (e.target === demoText.parentNode) typeDemo();
+            if (e.target === money) countMoney();
+            demoIo.unobserve(e.target);
+          });
+        }, { threshold: 0.6 });
+        demoIo.observe(demoText.parentNode);
+        demoIo.observe(money);
+      }
+    })();
+  </script>
+</body>
+</html>
