@@ -35,6 +35,8 @@
       --border: rgba(108, 99, 255, 0.28);
       --border-soft: rgba(108, 99, 255, 0.16);
       --positive: #34c77b;
+      --ember: #f5a623;
+      --ember-deep: #e8890c;
       --r-lg: 20px;
       --r-md: 14px;
       --r-pill: 100px;
@@ -42,7 +44,9 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    /* clip: декоративные glow-эллипсы шире вьюпорта распирали документ
+       (509px на 375) — из-за этого fixed-навбар уезжал кнопкой за край. */
+    html { scroll-behavior: smooth; overflow-x: clip; }
 
     body {
       background: var(--bg);
@@ -111,6 +115,26 @@
       border: 1px solid var(--border);
     }
     .btn-ghost:hover { background: var(--card-deep); transform: translateY(-1px); }
+    /* Поддержка: тёплый эмбер-сигнал, вторичный к индиго-CTA (не конкурирует) */
+    .btn-support {
+      background: rgba(245, 166, 35, 0.08);
+      color: var(--ember);
+      border: 1px solid rgba(245, 166, 35, 0.35);
+    }
+    .btn-support:hover {
+      background: rgba(245, 166, 35, 0.16);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(245, 166, 35, 0.18);
+    }
+    .btn-ember {
+      background: linear-gradient(135deg, var(--ember), var(--ember-deep));
+      color: #1a1205;
+      font-weight: 700;
+    }
+    .btn-ember:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 38px rgba(245, 166, 35, 0.32);
+    }
 
     /* ── Навбар ─────────────────────────────────────────── */
     .nav {
@@ -143,6 +167,8 @@
     }
     .nav-logo img { width: 34px; height: 34px; border-radius: 9px; }
     .nav .btn { min-height: 42px; padding: 0 22px; font-size: 15px; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav .btn-support { padding: 0 16px; }
 
     /* ── Hero ───────────────────────────────────────────── */
     .hero {
@@ -459,6 +485,21 @@
     .final .btn { position: relative; }
     .final-sub { margin-top: 18px; color: var(--faint); font-size: 15px; position: relative; }
 
+    /* ── Поддержка ──────────────────────────────────────── */
+    .support-band { position: relative; padding: 96px 0 84px; }
+    .support-band::before {
+      content: "";
+      position: absolute;
+      left: 50%; top: 40%;
+      width: 640px; height: 380px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(closest-side, rgba(245, 166, 35, 0.13), transparent 70%);
+      pointer-events: none;
+    }
+    .support-band .wrap { position: relative; }
+    .support-cta { text-align: center; margin-top: 8px; }
+    .support-note { margin-top: 14px; color: var(--faint); font-size: 14px; }
+
     /* ── Футер ──────────────────────────────────────────── */
     footer {
       border-top: 1px solid var(--border-soft);
@@ -506,6 +547,10 @@
       .demo-row .val { font-size: 17px; }
       .phone-chip { right: 4px; }
       .hero-cta .btn { width: 100%; }
+      /* Узкий экран: «Поддержать» сжимается до сердца, текст остаётся кнопке-CTA */
+      .nav .support-label { display: none; }
+      .nav .btn-support { padding: 0 12px; }
+      .nav .btn { padding: 0 16px; }
     }
   </style>
 </head>
@@ -518,7 +563,13 @@
         <img src="assets/avatar.png" alt="" width="34" height="34" />
         МОНОЛИТ
       </a>
-      <a class="btn btn-primary" href="https://t.me/monolithappru" target="_blank" rel="noopener">Тестировать</a>
+      <div class="nav-actions">
+        <a class="btn btn-support" href="support.html" aria-label="Поддержать разработку">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-6.7-4.35-9.33-8.11C.9 10.36 1.96 6.5 5.28 5.4c1.94-.64 4.03.05 5.22 1.65l1.5 2 1.5-2c1.19-1.6 3.28-2.29 5.22-1.65 3.32 1.1 4.38 4.96 2.61 7.49C18.7 16.65 12 21 12 21Z"/></svg>
+          <span class="support-label">Поддержать</span>
+        </a>
+        <a class="btn btn-primary" href="https://t.me/monolithappru" target="_blank" rel="noopener">Тестировать</a>
+      </div>
     </div>
   </nav>
 
@@ -729,6 +780,25 @@
         </article>
       </div>
       <p class="roadmap-note rv">Строим открыто — прогресс каждую неделю в <a href="https://t.me/monolithappru" target="_blank" rel="noopener">канале разработки</a>.</p>
+    </div>
+  </section>
+
+  <!-- Поддержка разработки -->
+  <section class="support-band" aria-labelledby="support-title">
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <span class="eyebrow" style="color: var(--ember)">Поддержка</span>
+        <h2 id="support-title">Бета бесплатна. Поддержать можно</h2>
+        <p>МОНОЛИТ строит один человек, без студии и инвесторов. Донат идёт на
+        сервер синхронизации, ИИ-запросы ассистента и публикацию в сторах.</p>
+      </div>
+      <div class="support-cta rv" style="--d:.08s">
+        <a class="btn btn-ember" href="support.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-6.7-4.35-9.33-8.11C.9 10.36 1.96 6.5 5.28 5.4c1.94-.64 4.03.05 5.22 1.65l1.5 2 1.5-2c1.19-1.6 3.28-2.29 5.22-1.65 3.32 1.1 4.38 4.96 2.61 7.49C18.7 16.65 12 21 12 21Z"/></svg>
+          Поддержать разработку
+        </a>
+        <p class="support-note">CloudTips · без регистрации · любая сумма</p>
+      </div>
     </div>
   </section>
 
