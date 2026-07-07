@@ -23,6 +23,20 @@
        или ждёт загрузку). Системный гротеск грузится мгновенно и выглядит чисто. -->
 
   <style>
+    /* Бренд-шрифты самохостом (канон DESIGN_RULES: «Manrope говорит, Inter
+       считает»). woff2-сабсеты под кириллицу+латиницу, ось веса сохранена.
+       Без внешних запросов — грузятся с того же Pages, в РФ не блокируются. */
+    @font-face {
+      font-family: 'Manrope';
+      src: url('assets/fonts/Manrope.woff2') format('woff2');
+      font-weight: 200 800; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('assets/fonts/Inter.woff2') format('woff2');
+      font-weight: 100 900; font-style: normal; font-display: swap;
+    }
+
     :root {
       --bg: #0d0d0d;
       --text: #f5f4f2;
@@ -51,7 +65,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       font-size: 17px;
       line-height: 1.6;
       overflow-x: hidden;
@@ -62,6 +76,7 @@
 
     .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
 
+    h1, h2, h3, .nav-logo { font-family: 'Manrope', system-ui, sans-serif; }
     h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.12; }
 
     .eyebrow {
@@ -713,22 +728,6 @@
     </div>
   </header>
 
-  <!-- Видео -->
-  <section id="video" aria-labelledby="video-title">
-    <div class="wrap">
-      <div class="sec-head center rv">
-        <h2 id="video-title">Из хаоса — в монолит. Из монолита — в сеть.</h2>
-        <p>Куда идёт МОНОЛИТ: от наведения порядка в деле — к сети с проверенной личностью, публичным профилем и белыми сделками.</p>
-      </div>
-      <div class="video-frame rv" style="--d:.1s">
-        <video controls preload="none" playsinline poster="assets/poster-vision.jpg">
-          <source src="assets/monolith-vision.mp4" type="video/mp4" />
-          Ваш браузер не поддерживает видео. <a href="assets/monolith-vision.mp4">Скачать ролик</a>.
-        </video>
-      </div>
-    </div>
-  </section>
-
   <!-- Возможности -->
   <section aria-labelledby="features-title">
     <div class="wrap">
@@ -886,6 +885,22 @@
           </div>
           <p class="cap num">Финансы: доход · расход · прибыль</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Видео: вижн-ролик рядом с «куда растёт» -->
+  <section id="video" aria-labelledby="video-title">
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <h2 id="video-title">Из хаоса — в монолит. Из монолита — в сеть.</h2>
+        <p>Куда идёт МОНОЛИТ: от наведения порядка в деле — к сети с проверенной личностью, публичным профилем и белыми сделками.</p>
+      </div>
+      <div class="video-frame rv" style="--d:.1s">
+        <video controls preload="none" playsinline poster="assets/poster-vision.jpg">
+          <source src="assets/monolith-vision.mp4" type="video/mp4" />
+          Ваш браузер не поддерживает видео. <a href="assets/monolith-vision.mp4">Скачать ролик</a>.
+        </video>
       </div>
     </div>
   </section>
