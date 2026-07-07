@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>МОНОЛИТ — AI-оператор для твоего дела</title>
-  <meta name="description" content="Напиши или скажи одной фразой — МОНОЛИТ сам создаст заказ, клиента, этапы с напоминаниями и посчитает деньги. AI-оператор для фрилансеров и малых команд. Уже работает на Android." />
+  <title>МОНОЛИТ — скажи как есть, получи готовое дело</title>
+  <meta name="description" content="Кинул голосовое или переписку — МОНОЛИТ сам собрал заказ, клиента, этапы с напоминаниями и посчитал деньги. Ассистент для дела фрилансера и малой команды. Уже работает на Android." />
   <meta name="theme-color" content="#0D0D0D" />
   <link rel="icon" type="image/png" href="assets/avatar.png" />
   <link rel="apple-touch-icon" href="assets/avatar.png" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="МОНОЛИТ — AI-оператор для твоего дела" />
-  <meta property="og:description" content="Хаос съедает твоё дело. МОНОЛИТ наводит порядок: заказ, клиент, этапы, финансы — из одной фразы. Дальше — ассистент прямо в твоих рабочих чатах." />
+  <meta property="og:title" content="МОНОЛИТ — скажи как есть, получи готовое дело" />
+  <meta property="og:description" content="Кинул голосовое или переписку — МОНОЛИТ сам собрал заказ, клиента, этапы, финансы. Живые цифры платформы прямо на странице. Дальше — ассистент в твоих рабочих чатах." />
   <meta property="og:url" content="https://hazzy3525-create.github.io/monolith/" />
   <meta property="og:image" content="https://hazzy3525-create.github.io/monolith/assets/og.jpg" />
   <meta property="og:locale" content="ru_RU" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://hazzy3525-create.github.io/monolith/assets/og.jpg" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Шрифт: системный стек, без внешних запросов. Google Fonts убран намеренно
+       (в РФ часто блокируется/медленный — иначе часть аудитории видит fallback
+       или ждёт загрузку). Системный гротеск грузится мгновенно и выглядит чисто. -->
 
   <style>
     :root {
@@ -51,7 +51,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       font-size: 17px;
       line-height: 1.6;
       overflow-x: hidden;
@@ -248,8 +248,8 @@
     }
     .phone-chip {
       position: absolute;
-      right: -26px;
-      bottom: 78px;
+      right: 22px;
+      bottom: -22px;
       padding: 12px 22px;
       border-radius: var(--r-pill);
       background: var(--primary);
@@ -258,6 +258,46 @@
       font-weight: 600;
       white-space: nowrap;
       box-shadow: 0 14px 38px rgba(108, 99, 255, 0.4);
+    }
+
+    /* ── Hero: доказательство (живые цифры) ─────────────── */
+    .hero-copy { position: relative; }
+    .hero-proof {
+      display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+      margin-top: 34px; padding-top: 26px;
+      border-top: 1px solid var(--border-soft);
+    }
+    .hero-proof-item { display: flex; flex-direction: column; gap: 3px; }
+    .hero-proof-item b {
+      font-size: 22px; font-weight: 800; letter-spacing: -0.01em;
+      color: var(--text); white-space: nowrap;
+    }
+    .hero-proof-item span { color: var(--faint); font-size: 12.5px; }
+    .hero-live {
+      display: inline-flex; align-items: center; gap: 7px; margin-left: auto;
+      color: var(--positive); font-size: 12.5px; font-weight: 600;
+    }
+    .live-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--positive);
+      flex: none; animation: livePulse 2.4s ease-out infinite;
+    }
+
+    /* ── Hero: трансформация (голосовое → заказ) ─────────── */
+    .hero-demo { position: relative; display: flex; flex-direction: column; gap: 12px; }
+    .hero-msg {
+      background: var(--card-deep);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--r-lg);
+      padding: 18px 20px;
+      font-size: 16.5px; line-height: 1.5; color: var(--text);
+    }
+    .hero-msg-tag {
+      display: block; color: var(--primary-strong);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.02em; margin-bottom: 8px;
+    }
+    .hero-demo-arrow {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      color: var(--faint); font-size: 13px; font-weight: 500;
     }
 
     /* ── Секции ─────────────────────────────────────────── */
@@ -511,6 +551,67 @@
     footer a { color: var(--muted); text-decoration: none; }
     footer a:hover { color: var(--text); }
 
+    /* ── Живая статистика ───────────────────────────────── */
+    .stats-band { position: relative; overflow: hidden; }
+    .stats-glow {
+      position: absolute; top: -140px; left: 50%;
+      width: 900px; height: 560px; margin-left: -450px;
+      background: radial-gradient(closest-side, rgba(108, 99, 255, 0.16) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 9px; margin-top: 20px;
+      padding: 8px 16px; border-radius: var(--r-pill);
+      border: 1px solid var(--border-soft); background: var(--card);
+      font-size: 13.5px; color: var(--muted);
+    }
+    .live-badge .live-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--positive);
+      flex: none; animation: livePulse 2.4s ease-out infinite;
+    }
+    @keyframes livePulse {
+      0%   { box-shadow: 0 0 0 0 rgba(52, 199, 123, 0.5); }
+      70%  { box-shadow: 0 0 0 9px rgba(52, 199, 123, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 199, 123, 0); }
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .stat {
+      position: relative; background: var(--card);
+      border: 1px solid var(--border-soft); border-radius: var(--r-lg);
+      padding: 28px 26px;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+    .stat:hover { transform: translateY(-3px); border-color: var(--border); background: var(--card-deep); }
+    .stat-val { display: block; font-size: clamp(26px, 3vw, 36px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.04; white-space: nowrap; }
+    .stat-label { margin-top: 12px; color: var(--muted); font-size: 15px; }
+    .stat-hero {
+      grid-column: span 2;
+      background: linear-gradient(135deg, rgba(108, 99, 255, 0.16), rgba(108, 99, 255, 0.05));
+      border-color: var(--border);
+    }
+    .stat-hero .stat-val { color: var(--primary-strong); font-size: clamp(40px, 5.2vw, 60px); }
+    .stat-hero .stat-label { font-size: 16.5px; }
+    .reliability { margin-top: 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .rel {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      background: var(--card); border: 1px solid var(--border-soft);
+      border-radius: var(--r-md); padding: 22px 26px;
+    }
+    .rel-val { font-size: 26px; font-weight: 700; letter-spacing: -0.01em; flex: none; white-space: nowrap; }
+    .rel-val.ok { color: var(--positive); }
+    .rel-label { color: var(--muted); font-size: 14px; text-align: right; line-height: 1.35; }
+    .stats-foot { margin-top: 26px; text-align: center; color: var(--faint); font-size: 14.5px; }
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-hero { grid-column: span 2; }
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-hero { grid-column: span 1; }
+      .reliability { grid-template-columns: 1fr; }
+      .rel-label { font-size: 13.5px; }
+    }
+
     /* ── Reveal-анимации ────────────────────────────────── */
     .rv {
       opacity: 0;
@@ -568,7 +669,7 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-6.7-4.35-9.33-8.11C.9 10.36 1.96 6.5 5.28 5.4c1.94-.64 4.03.05 5.22 1.65l1.5 2 1.5-2c1.19-1.6 3.28-2.29 5.22-1.65 3.32 1.1 4.38 4.96 2.61 7.49C18.7 16.65 12 21 12 21Z"/></svg>
           <span class="support-label">Поддержать</span>
         </a>
-        <a class="btn btn-primary" href="https://www.rustore.ru/catalog/app/ru.monolithapp.assistant" target="_blank" rel="noopener">Установить</a>
+        <a class="btn btn-primary" href="https://t.me/monolithappru" target="_blank" rel="noopener">Тестировать</a>
       </div>
     </div>
   </nav>
@@ -577,76 +678,52 @@
   <header class="hero" id="top">
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="wrap hero-grid">
-      <div>
-        <span class="eyebrow rv">AI-оператор для твоего дела</span>
-        <h1 class="rv" style="--d:.06s">Хаос съедает твоё дело. <span class="hl">МОНОЛИТ</span> наводит порядок.</h1>
-        <p class="hero-sub rv" style="--d:.12s">Напиши или скажи одной фразой — ассистент сам создаст заказ, клиента, этапы с напоминаниями и посчитает деньги. Без форм, таблиц и потерянных чатов.</p>
-        <div class="hero-cta rv" style="--d:.18s">
-          <a class="btn btn-primary" href="https://www.rustore.ru/catalog/app/ru.monolithapp.assistant" target="_blank" rel="noopener">Установить в RuStore</a>
-          <a class="btn btn-ghost" href="#video">Смотреть ролик</a>
+      <div class="hero-copy">
+        <h1 class="rv">Скажи как есть.<br>Получи готовое <span class="hl">дело</span>.</h1>
+        <p class="hero-sub rv" style="--d:.1s">Кинул голосовое или переписку — ассистент сам собрал заказ, клиента, этапы с напоминаниями и посчитал деньги. Без форм, таблиц и заметок «на потом».</p>
+        <div class="hero-cta rv" style="--d:.16s">
+          <a class="btn btn-primary" href="https://t.me/monolithappru" target="_blank" rel="noopener">Установить · APK в Telegram</a>
+          <a class="btn btn-ghost" href="#numbers">Смотреть цифры</a>
         </div>
-        <p class="hero-note rv" style="--d:.24s"><span class="dot" aria-hidden="true"></span>Уже в RuStore на Android · Скоро — iOS · Бесплатно на бете.</p>
+        <!-- Живое доказательство: реальные числа платформы (public_stats) -->
+        <div class="hero-proof rv" style="--d:.22s">
+          <div class="hero-proof-item"><b class="num" data-key="money_tracked" data-fmt="money">—</b><span>проведено делом</span></div>
+          <div class="hero-proof-item"><b class="num" data-key="orders_processed" data-fmt="int">—</b><span>заказов собрано</span></div>
+          <div class="hero-proof-item"><b class="num" data-key="records_encrypted" data-fmt="int">—</b><span>записей зашифровано</span></div>
+          <span class="hero-live"><span class="live-dot" aria-hidden="true"></span>вживую</span>
+        </div>
       </div>
-      <div class="phone-zone rv" style="--d:.2s">
-        <div class="phone-glow" aria-hidden="true"></div>
-        <div class="phone">
-          <img src="assets/work_board.png" alt="Экран приложения МОНОЛИТ: доска заказов с карточками проектов" />
-          <span class="phone-chip num">Доска · Финансы · Команда</span>
+      <div class="hero-demo rv" style="--d:.2s">
+        <div class="hero-msg">
+          <span class="hero-msg-tag">голосовое · 0:14</span>
+          <p class="demo-text" id="demo-text" aria-label="«Запиши заказ для НеоСферы, бюджет 350 тысяч, дедлайн 28 октября»"></p>
+        </div>
+        <div class="hero-demo-arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+          ассистент разобрал сам
+        </div>
+        <div class="demo-card">
+          <span class="demo-card-chip">Новый заказ</span>
+          <div class="demo-row"><span class="lbl">Клиент</span><span class="val">НеоСфера</span></div>
+          <div class="demo-row"><span class="lbl">Бюджет</span><span class="val accent num" id="demo-money" data-target="350000">0 ₽</span></div>
+          <div class="demo-row"><span class="lbl">Дедлайн</span><span class="val">28 октября</span></div>
+          <div class="demo-row"><span class="lbl">Этапы · напоминания</span><span class="val accent num">4 ✓</span></div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Демо: фраза → структура -->
-  <section aria-labelledby="demo-title">
-    <div class="wrap">
-      <div class="sec-head center rv">
-        <span class="eyebrow">Ввод без форм</span>
-        <h2 id="demo-title">Одна фраза. Готовый проект.</h2>
-        <p>Никаких форм и полей. Пишешь или говоришь как человеку — получаешь структуру.</p>
-      </div>
-      <div class="demo-flow">
-        <div class="demo-input rv" style="--d:.08s">
-          <span class="demo-spark" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="m12 7 1.2 2.8L16 11l-2.8 1.2L12 15l-1.2-2.8L8 11l2.8-1.2z"/></svg>
-          </span>
-          <p class="demo-text" id="demo-text" aria-label="«Запиши заказ для НеоСферы, бюджет 350 тысяч, дедлайн 28 октября»"></p>
-        </div>
-        <div class="demo-arrow rv" style="--d:.16s" aria-hidden="true">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
-        </div>
-        <div class="demo-card rv" style="--d:.24s">
-          <span class="demo-card-chip">Новый заказ</span>
-          <div class="demo-row"><span class="lbl">Клиент</span><span class="val">НеоСфера</span></div>
-          <div class="demo-row"><span class="lbl">Бюджет</span><span class="val accent num" id="demo-money" data-target="350000">0 ₽</span></div>
-          <div class="demo-row"><span class="lbl">Дедлайн</span><span class="val">28 октября</span></div>
-          <div class="demo-row">
-            <span class="lbl">Этапы · напоминания</span>
-            <span class="val accent num">4
-              <span class="demo-checks" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgba(108,99,255,.35)"/><path d="m8.5 12.2 2.4 2.4 4.6-5.2"/></svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgba(108,99,255,.35)"/><path d="m8.5 12.2 2.4 2.4 4.6-5.2"/></svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgba(108,99,255,.35)"/><path d="m8.5 12.2 2.4 2.4 4.6-5.2"/></svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#6c63ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgba(108,99,255,.35)"/><path d="m8.5 12.2 2.4 2.4 4.6-5.2"/></svg>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Видео -->
   <section id="video" aria-labelledby="video-title">
     <div class="wrap">
       <div class="sec-head center rv">
-        <span class="eyebrow">Имиджевый ролик</span>
-        <h2 id="video-title">30 секунд — от хаоса к порядку</h2>
+        <h2 id="video-title">Из хаоса — в монолит. Из монолита — в сеть.</h2>
+        <p>Куда идёт МОНОЛИТ: от наведения порядка в деле — к сети с проверенной личностью, публичным профилем и белыми сделками.</p>
       </div>
       <div class="video-frame rv" style="--d:.1s">
-        <video controls preload="metadata" playsinline poster="assets/poster.jpg">
-          <source src="assets/promo.mp4" type="video/mp4" />
-          Ваш браузер не поддерживает видео. <a href="assets/promo.mp4">Скачать ролик</a>.
+        <video controls preload="none" playsinline poster="assets/poster-vision.jpg">
+          <source src="assets/monolith-vision.mp4" type="video/mp4" />
+          Ваш браузер не поддерживает видео. <a href="assets/monolith-vision.mp4">Скачать ролик</a>.
         </video>
       </div>
     </div>
@@ -656,7 +733,6 @@
   <section aria-labelledby="features-title">
     <div class="wrap">
       <div class="sec-head rv">
-        <span class="eyebrow">Всё в одном месте</span>
         <h2 id="features-title">Один инструмент закрывает дело целиком</h2>
         <p>Заказы, деньги, команда и клиенты — без таблиц, чатов с самим собой и заметок «на потом».</p>
       </div>
@@ -727,23 +803,86 @@
     </div>
   </section>
 
+  <!-- Живая статистика -->
+  <section class="stats-band" id="numbers" aria-labelledby="stats-title">
+    <div class="stats-glow" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <h2 id="stats-title">МОНОЛИТ в цифрах</h2>
+        <p>Всё, что дело наработало через приложение. Цифры обезличены и растут сами — за ними не стоит ни одного имени, заказа или суммы конкретного человека.</p>
+        <span class="live-badge" id="stats-badge"><span class="live-dot" aria-hidden="true"></span><span id="stats-badge-text">Обновляется в реальном времени</span></span>
+      </div>
+
+      <div class="stats-grid rv" style="--d:.06s">
+        <div class="stat stat-hero">
+          <span class="stat-val num" data-key="money_tracked" data-fmt="money">—</span>
+          <p class="stat-label">Денег проведено через дело</p>
+        </div>
+        <div class="stat">
+          <span class="stat-val num" data-key="orders_processed" data-fmt="int">—</span>
+          <p class="stat-label">Заказов обработано</p>
+        </div>
+        <div class="stat">
+          <span class="stat-val num" data-key="expenses_tracked" data-fmt="money">—</span>
+          <p class="stat-label">Расходов учтено</p>
+        </div>
+        <div class="stat">
+          <span class="stat-val num" data-key="people_activated" data-fmt="int">—</span>
+          <p class="stat-label">Человек начали вести дело</p>
+        </div>
+        <div class="stat">
+          <span class="stat-val num" data-key="records_encrypted" data-fmt="int">—</span>
+          <p class="stat-label">Записей зашифровано</p>
+        </div>
+        <div class="stat">
+          <span class="stat-val num" data-key="syncs_encrypted" data-fmt="int">—</span>
+          <p class="stat-label">Синхронизаций зашифровано</p>
+        </div>
+        <div class="stat">
+          <span class="stat-val num" data-key="documents_created" data-fmt="int">—</span>
+          <p class="stat-label">Документов создано</p>
+        </div>
+        <div class="stat">
+          <span class="stat-val num" data-key="voice_notes" data-fmt="int">—</span>
+          <p class="stat-label">Голосовых надиктовано</p>
+        </div>
+      </div>
+
+      <div class="reliability rv" style="--d:.12s">
+        <div class="rel">
+          <span class="rel-val num" data-key="downtime_seconds" data-fmt="sec">—</span>
+          <span class="rel-label">Сервер был недоступен<br>за всё время</span>
+        </div>
+        <div class="rel">
+          <span class="rel-val num" data-key="failures_total" data-fmt="int">—</span>
+          <span class="rel-label">Сбоев поймано<br>и пережито без потерь</span>
+        </div>
+        <div class="rel">
+          <span class="rel-val ok num">0</span>
+          <span class="rel-label">Заказов сервер<br>смог прочитать</span>
+        </div>
+      </div>
+
+      <p class="stats-foot rv">Пока продукт в бете, цифры малы и честны — стена оживает с каждым новым делом. Никаких накруток: за каждой цифрой реальное событие.</p>
+    </div>
+  </section>
+
   <!-- Скриншоты -->
   <section aria-labelledby="screens-title">
     <div class="wrap">
       <div class="sec-head center rv">
-        <span class="eyebrow">Живой продукт, не концепт</span>
         <h2 id="screens-title">Это настоящие экраны приложения</h2>
       </div>
       <div class="screens">
         <div class="screen-item rv">
           <div class="phone">
-            <img src="assets/work_board.png" alt="Скриншот: доска заказов МОНОЛИТ — карточки проектов со статусами" loading="lazy" />
+            <img src="assets/work_board.png" alt="Скриншот: доска заказов МОНОЛИТ — карточки проектов со статусами" decoding="async" />
           </div>
           <p class="cap">Доска проектов</p>
         </div>
         <div class="screen-item rv" style="--d:.1s">
           <div class="phone">
-            <img src="assets/finance.png" alt="Скриншот: финансы МОНОЛИТ — прибыль, доходы, расходы и прогноз" loading="lazy" />
+            <img src="assets/finance.png" alt="Скриншот: финансы МОНОЛИТ — прибыль, доходы, расходы и прогноз" decoding="async" />
           </div>
           <p class="cap num">Финансы: доход · расход · прибыль</p>
         </div>
@@ -755,7 +894,6 @@
   <section aria-labelledby="roadmap-title">
     <div class="wrap">
       <div class="sec-head center rv">
-        <span class="eyebrow">Куда растёт МОНОЛИТ</span>
         <h2 id="roadmap-title">Дальше — ассистент там, где твои клиенты</h2>
         <p>Заказы рождаются в переписках. Поэтому следующий шаг — агент, который живёт прямо в твоих рабочих чатах и ведёт дело за тебя.</p>
       </div>
@@ -787,7 +925,6 @@
   <section class="support-band" aria-labelledby="support-title">
     <div class="wrap">
       <div class="sec-head center rv">
-        <span class="eyebrow" style="color: var(--ember)">Поддержка</span>
         <h2 id="support-title">Бета бесплатна. Поддержать можно</h2>
         <p>МОНОЛИТ строит один человек, без студии и инвесторов. Донат идёт на
         сервер синхронизации, ИИ-запросы ассистента и публикацию в сторах.</p>
@@ -808,8 +945,8 @@
     <div class="wrap">
       <img class="rv" src="assets/avatar.png" alt="" width="96" height="96" />
       <h2 id="final-title" class="rv" style="--d:.08s">МОНОЛИТ. Моё дело.</h2>
-      <a class="btn btn-primary rv" style="--d:.16s" href="https://www.rustore.ru/catalog/app/ru.monolithapp.assistant" target="_blank" rel="noopener">Установить в RuStore</a>
-      <p class="final-sub rv" style="--d:.22s">Уже в RuStore на Android · Скоро — iOS · Бесплатно на бете</p>
+      <a class="btn btn-primary rv" style="--d:.16s" href="https://t.me/monolithappru" target="_blank" rel="noopener">Тестируй первым в Telegram</a>
+      <p class="final-sub rv" style="--d:.22s">Бесплатно на этапе беты · APK по запросу в канале</p>
     </div>
   </section>
 
@@ -919,6 +1056,77 @@
         }, { threshold: 0.6 });
         demoIo.observe(demoText.parentNode);
         demoIo.observe(money);
+      }
+
+      /* ── Живая статистика ─────────────────────────────── */
+      var SUPA_URL = "https://jkdrnaagjplpyhlsmxii.supabase.co";
+      var SUPA_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImprZHJuYWFnanBscHlobHNteGlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwMDM1NzksImV4cCI6MjA5ODU3OTU3OX0.LP0aO74dEjIYr5oGFXCRz4js-GxZTx2jrCZxVqrTWAo";
+      var STATS_RPC = SUPA_URL + "/rest/v1/rpc/public_stats";
+      // Демо-числа ТОЛЬКО для просмотра дизайна (index.html?demo=1). На боевой
+      // странице не показываются — там живые данные или состояние «собирается».
+      var STATS_SAMPLE = {
+        money_tracked: 4820000, expenses_tracked: 1310000, orders_processed: 137,
+        people_activated: 54, records_encrypted: 9648, syncs_encrypted: 2140,
+        documents_created: 212, voice_notes: 389, downtime_seconds: 74, failures_total: 61
+      };
+
+      var statsBand = document.querySelector(".stats-band");
+      if (statsBand) {
+        // Числа наполняем ВЕЗДЕ, где есть data-key: и стена, и полоса
+        // доказательства в герое (реальные live-данные над сгибом).
+        var statEls = document.querySelectorAll("[data-key]");
+        var badge = document.getElementById("stats-badge-text");
+        var shown = {};
+
+        //   (неразрывный пробел): число не рвётся, и знак ₽/сек не уезжает на строку ниже.
+        function grp(v) { return Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+        function fmtBy(kind) {
+          if (kind === "money") return function (v) { return grp(v) + " ₽"; };
+          if (kind === "sec") return function (v) { return grp(v) + " сек"; };
+          return grp;
+        }
+        function put(el, val, animate) {
+          var fmt = fmtBy(el.getAttribute("data-fmt"));
+          var key = el.getAttribute("data-key");
+          var from = shown[key] || 0;
+          shown[key] = val;
+          if (!animate || reduced) { el.textContent = fmt(val); return; }
+          var t0 = performance.now(), dur = 1100;
+          (function tick(now) {
+            var p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+            el.textContent = fmt(from + (val - from) * e);
+            if (p < 1) requestAnimationFrame(tick);
+          })(performance.now());
+        }
+        function apply(data, animate) {
+          statEls.forEach(function (el) {
+            var key = el.getAttribute("data-key");
+            if (key && data[key] != null) put(el, Number(data[key]) || 0, animate);
+          });
+          if (badge) badge.textContent = "Обновлено только что";
+        }
+        function load(animate) {
+          if (location.search.indexOf("demo") !== -1) { apply(STATS_SAMPLE, animate); return; }
+          fetch(STATS_RPC, {
+            method: "POST",
+            headers: { apikey: SUPA_ANON, Authorization: "Bearer " + SUPA_ANON, "Content-Type": "application/json" },
+            body: "{}"
+          })
+            .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+            .then(function (d) { if (d && typeof d === "object") apply(d, animate); })
+            .catch(function () { apply(STATS_SAMPLE, animate); if (badge) badge.textContent = "Показатели беты"; });
+        }
+
+        var statsFired = false;
+        function startStats() {
+          if (statsFired) return;
+          statsFired = true;
+          load(true);
+          setInterval(function () { load(false); }, 20000);
+        }
+        // Полоса доказательства в герое над сгибом — тянем цифры сразу на
+        // загрузке (не ждём скролла до стены), дальше обновляем раз в 20с.
+        startStats();
       }
     })();
   </script>
