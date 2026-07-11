@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>МОНОЛИТ — Поддержать разработку</title>
-<meta name="description" content="МОНОЛИТ строит один человек. Донат идёт на сервер, ИИ и публикацию в сторах. CloudTips — без регистрации, карта любого банка.">
+<meta name="description" content="МОНОЛИТ строит один человек. Поддержать проект или вложиться — написать основателю напрямую в Telegram.">
 <style>
   /* Дизайн-база v2: индиго × эмбер на обсидиане (DESIGN_RULES.md) */
   :root {
@@ -14,6 +14,7 @@
     --edge:rgba(255,255,255,0.08);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
+  html { overflow-x:clip; }
   body { background:linear-gradient(180deg, var(--bg-top) 0%, var(--bg) 40%, #060608 100%);
          min-height:100vh; color:var(--text);
          font-family:'Inter',-apple-system,'Segoe UI',Roboto,sans-serif;
@@ -52,7 +53,26 @@
                      box-shadow:0 14px 40px rgba(245,166,35,0.38),
                                 inset 0 1px 0 rgba(255,255,255,0.35); }
   .btn-ember:active { transform:scale(0.98); }
+  .btn-indigo { display:inline-flex; align-items:center; justify-content:center; gap:10px;
+                max-width:100%; text-align:center;
+                min-height:54px; padding:14px 34px; border-radius:27px;
+                background:linear-gradient(135deg, var(--accent-bright), var(--accent));
+                color:#fff; font-weight:700; font-size:17px; text-decoration:none;
+                box-shadow:0 10px 34px rgba(110,89,240,0.32),
+                           inset 0 1px 0 rgba(255,255,255,0.22);
+                transition:transform .15s cubic-bezier(.23,1,.32,1), box-shadow .15s; }
+  .btn-indigo:hover { transform:translateY(-1px);
+                      box-shadow:0 14px 40px rgba(110,89,240,0.40),
+                                 inset 0 1px 0 rgba(255,255,255,0.22); }
+  .btn-indigo:active { transform:scale(0.98); }
   .pay-note { color:var(--muted); font-size:14px; margin-top:12px; }
+  .invest { border-color:rgba(110,89,240,0.35); }
+  .invest .links { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; }
+  .btn-ghost { display:inline-flex; align-items:center; min-height:44px; padding:0 22px;
+               border-radius:22px; border:1px solid var(--edge); color:var(--text);
+               font-weight:600; font-size:15px; text-decoration:none;
+               transition:border-color .15s, background .15s; }
+  .btn-ghost:hover { border-color:rgba(255,255,255,0.22); background:rgba(255,255,255,0.04); }
 
   h2 { font-size:19px; font-weight:700; letter-spacing:-0.3px; margin-bottom:12px; }
   .where { display:grid; gap:12px; }
@@ -80,18 +100,30 @@
     <div class="logo-name">МОНОЛИТ</div>
   </div>
 
-  <p class="eyebrow">Бета бесплатна. И останется бесплатной</p>
+  <p class="eyebrow">Бета бесплатна. Ранним тестерам — особые условия навсегда</p>
   <h1>Поддержать <em>разработку</em></h1>
   <p class="lead"><strong>МОНОЛИТ строит один человек</strong> — без студии,
   инвесторов и рекламы. Приложение в открытой бете и не берёт денег.
   Но сервер, ИИ-запросы и публикация в сторах стоят денег каждый месяц.
-  Если МОНОЛИТ экономит вам время — можно поддержать его напрямую.</p>
+  Хотите поддержать — напишите основателю напрямую, договоримся лично.</p>
 
   <div class="card pay">
-    <!-- ЕДИНСТВЕННОЕ место с платёжной ссылкой (CloudTips Савелия) -->
-    <a class="btn-ember" href="https://pay.cloudtips.ru/p/febf399e">Поддержать через CloudTips</a>
-    <p class="pay-note">Без регистрации · карта любого банка или СБП ·
-    сумма любая, даже кофе в один клик</p>
+    <!-- Платёжных ссылок на сайте НЕТ (11.07.2026): поддержка и инвестиции — только напрямую. -->
+    <a class="btn-indigo" href="https://t.me/sbphotoshoter">Написать основателю · @sbphotoshoter</a>
+    <p class="pay-note">Telegram · отвечает лично · поддержка, вопросы, предложения</p>
+  </div>
+
+  <div class="card invest">
+    <h2>Инвестору</h2>
+    <p class="alt">МОНОЛИТ — работающий продукт на Android с реальными пользователями:
+    AI-ассистент превращает голос и переписку в заказы, финансы и напоминания, данные
+    шифруются на устройстве. Дальше — публичные витрины специалистов и маркет с доверием
+    на подтверждённых сделках. Если хотите вложиться в продукт на ранней стадии —
+    условия обсуждаются только лично.</p>
+    <div class="links">
+      <a class="btn-ghost" href="product.html">Смотреть продукт и план&nbsp;→</a>
+      <a class="btn-ghost" href="https://t.me/sbphotoshoter">Связаться напрямую</a>
+    </div>
   </div>
 
   <div class="card">
@@ -121,6 +153,7 @@
   <div class="footer">
     МОНОЛИТ — AI-оператор для вашего дела ·
     <a href="index.html">На главную</a> ·
+    <a href="product.html">Продукт и план</a> ·
     <a href="privacy.html">Конфиденциальность</a>
   </div>
 </main>
