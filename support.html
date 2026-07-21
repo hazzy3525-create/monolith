@@ -18,8 +18,36 @@
   body { background:linear-gradient(180deg, var(--bg-top) 0%, var(--bg) 40%, #060608 100%);
          min-height:100vh; color:var(--text);
          font-family:'Inter',-apple-system,'Segoe UI',Roboto,sans-serif;
-         line-height:1.65; padding:48px 20px 80px; }
+         line-height:1.65; padding:128px 20px 80px; }
   main { max-width:680px; margin:0 auto; }
+
+  /* ── Навбар (общая шапка сайта) ─────────────────────── */
+  .nav { position:fixed; top:0; left:0; right:0; z-index:50;
+         background:rgba(8,8,11,0.74); backdrop-filter:blur(14px);
+         -webkit-backdrop-filter:blur(14px);
+         border-bottom:1px solid rgba(255,255,255,0.07); }
+  .nav-wrap { max-width:1140px; margin:0 auto; padding:0 24px; height:64px;
+              display:flex; align-items:center; justify-content:space-between; }
+  .nav-logo { display:flex; align-items:center; gap:10px; color:var(--text);
+              text-decoration:none; font-weight:800; letter-spacing:1px; }
+  .nav-logo .logo-mark { width:32px; height:32px; border-radius:9px; font-size:17px; }
+  .nav-links { display:flex; align-items:center; gap:2px; }
+  .nav-links a { padding:9px 13px; border-radius:9px; font-size:15px; font-weight:500;
+                 color:var(--muted); text-decoration:none;
+                 transition:color .2s ease, background .2s ease; }
+  .nav-links a:hover { color:var(--text); background:rgba(110,89,240,0.09); }
+  .nav-links a[aria-current="page"] { color:var(--text); }
+  .nav-cta { display:inline-flex; align-items:center; min-height:40px; padding:0 18px;
+             border-radius:20px; background:var(--accent); color:#fff; font-weight:700;
+             font-size:14.5px; text-decoration:none; white-space:nowrap;
+             transition:background .2s ease, transform .2s ease; }
+  .nav-cta:hover { background:var(--accent-bright); transform:translateY(-1px); }
+  @media (max-width:760px) {
+    .nav-links .nav-opt { display:none; }
+    .nav-links a { padding:8px 10px; font-size:14px; }
+  }
+  @media (max-width:600px) { .nav-links .nav-mid { display:none; } }
+  @media (max-width:420px) { .nav-logo span { display:none; } }
   .logo { display:flex; align-items:center; gap:14px; margin-bottom:44px; }
   .logo-mark { width:44px; height:44px; border-radius:12px;
                background:linear-gradient(135deg, var(--accent-bright), #9A5CF6);
@@ -87,18 +115,43 @@
   .alt a { color:var(--accent-bright); text-decoration:none; }
   .alt a:hover { text-decoration:underline; }
 
-  .footer { margin-top:52px; padding-top:24px; border-top:1px solid var(--edge);
-            color:var(--muted2); font-size:14px; }
+  /* ── Переключалка страниц ───────────────────────────── */
+  .pager { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:52px; }
+  .pager a { display:flex; flex-direction:column; gap:5px; padding:20px 22px;
+             border:1px solid var(--edge); border-radius:18px; background:var(--card);
+             text-decoration:none;
+             transition:border-color .2s ease, background .2s ease, transform .2s ease; }
+  .pager a:hover { border-color:rgba(110,89,240,0.4); background:var(--card-alt);
+                   transform:translateY(-2px); }
+  .pager .pg-k { font-size:11.5px; font-weight:600; letter-spacing:.07em;
+                 text-transform:uppercase; color:var(--muted2); }
+  .pager .pg-t { font-weight:700; font-size:16px; color:var(--text); }
+  .pager a.next { align-items:flex-end; text-align:right; }
+  @media (max-width:560px) { .pager { grid-template-columns:1fr; }
+    .pager a.next { align-items:flex-start; text-align:left; } }
+
+  .footer { margin-top:32px; padding-top:24px; border-top:1px solid var(--edge);
+            color:var(--muted2); font-size:14px; line-height:2; }
   .footer a { color:var(--muted); text-decoration:none; }
   .footer a:hover { color:var(--text); }
 </style>
 </head>
 <body>
-<main>
-  <div class="logo">
-    <div class="logo-mark">М</div>
-    <div class="logo-name">МОНОЛИТ</div>
+<nav class="nav" aria-label="Основная навигация">
+  <div class="nav-wrap">
+    <a class="nav-logo" href="index.html" aria-label="МОНОЛИТ — на главную">
+      <div class="logo-mark">М</div>
+      <span>МОНОЛИТ</span>
+    </a>
+    <div class="nav-links" aria-label="Разделы сайта">
+      <a class="nav-opt" href="index.html">Приложение</a>
+      <a href="product.html">Инвесторам</a>
+      <a class="nav-mid" href="support.html" aria-current="page">Поддержать</a>
+    </div>
+    <a class="nav-cta" href="https://t.me/monolithappru" target="_blank" rel="noopener">Тестировать</a>
   </div>
+</nav>
+<main>
 
   <p class="eyebrow">Бета бесплатна. Ранним тестерам — особые условия навсегда</p>
   <h1>Поддержать <em>разработку</em></h1>
@@ -150,11 +203,25 @@
     это двигает продукт не меньше.</p>
   </div>
 
+  <div class="pager" aria-label="Дальше по сайту">
+    <a href="product.html">
+      <span class="pg-k">Назад</span>
+      <span class="pg-t">← Продукт и план для инвесторов</span>
+    </a>
+    <a class="next" href="privacy.html">
+      <span class="pg-k">Дальше</span>
+      <span class="pg-t">Политика конфиденциальности →</span>
+    </a>
+  </div>
+
   <div class="footer">
-    МОНОЛИТ — AI-оператор для вашего дела ·
-    <a href="index.html">На главную</a> ·
-    <a href="product.html">Продукт и план</a> ·
-    <a href="privacy.html">Конфиденциальность</a>
+    МОНОЛИТ — AI-оператор для вашего дела<br>
+    <a href="index.html">Главная</a> ·
+    <a href="product.html">Инвесторам</a> ·
+    <a href="privacy.html">Конфиденциальность</a> ·
+    <a href="https://t.me/monolithappru">Канал разработки</a> ·
+    <a href="mailto:hazzy2535@gmail.com">hazzy2535@gmail.com</a><br>
+    © 2026 МОНОЛИТ · Основатель — Савелий Бубнов · <a href="https://t.me/sbphotoshoter">@sbphotoshoter</a>
   </div>
 </main>
 </body>

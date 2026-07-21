@@ -20,7 +20,7 @@
   }
 
   :root {
-    --bg: #0d0d0d;
+    --bg: #08080b;
     --text: #f5f4f2;
     --muted: #a5a2b0;
     --faint: #8a87a0;
@@ -67,13 +67,25 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 50;
     padding: 14px 0; transition: background .25s ease, box-shadow .25s ease;
   }
-  .nav.scrolled { background: rgba(13,13,13,0.82); backdrop-filter: blur(14px);
+  .nav.scrolled { background: rgba(8,8,11,0.82); backdrop-filter: blur(14px);
                   box-shadow: 0 1px 0 var(--border-soft); }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; }
   .nav-logo { display: flex; align-items: center; gap: 10px; color: var(--text);
               text-decoration: none; font-weight: 800; letter-spacing: 1px; }
   .nav-logo img { width: 34px; height: 34px; border-radius: 9px; }
   .nav-actions { display: flex; align-items: center; gap: 10px; }
+  .nav-links { display: flex; align-items: center; gap: 2px; }
+  .nav-links a { padding: 9px 13px; border-radius: 9px; font-size: 15px; font-weight: 500;
+                 color: var(--muted); text-decoration: none;
+                 transition: color .2s ease, background .2s ease; }
+  .nav-links a:hover { color: var(--text); background: rgba(108,99,255,0.09); }
+  .nav-links a[aria-current="page"] { color: var(--text); }
+  @media (max-width: 760px) {
+    .nav-links .nav-opt { display: none; }
+    .nav-links a { padding: 8px 10px; font-size: 14px; }
+  }
+  @media (max-width: 600px) { .nav-links .nav-mid { display: none; } }
+  @media (max-width: 420px) { .nav-logo span { display: none; } }
 
   /* ── Кнопки ──────────────────────────────────────────── */
   .btn {
@@ -164,6 +176,12 @@
   .feature h3 { font-size: 16.5px; margin-bottom: 8px; }
   .feature p { color: var(--muted); font-size: 14.5px; line-height: 1.55; }
 
+  /* ── Живой кадр ─────────────────────────────────────── */
+  .shot-frame { background: var(--card); border: 1px solid var(--border);
+                border-radius: var(--r-lg); padding: 10px; margin-top: 28px; }
+  .shot-frame img { display: block; width: 100%; border-radius: 12px; }
+  .shot-cap { margin-top: 14px; text-align: center; color: var(--muted); font-size: 14.5px; }
+
   /* ── Путь продукта (сигнатура страницы) ─────────────── */
   .path { position: relative; display: grid; gap: 0; }
   .phase { position: relative; display: grid;
@@ -240,12 +258,37 @@
   .invest .hero-cta { margin-bottom: 0; position: relative; }
   .invest-note { color: var(--faint); font-size: 13.5px; margin-top: 16px; }
 
-  footer { padding: 34px 0 46px; border-top: 1px solid var(--border-soft);
+  /* ── Переключалка страниц ───────────────────────────── */
+  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 72px; }
+  .pager a { display: flex; flex-direction: column; gap: 6px; padding: 22px 26px;
+             border: 1px solid var(--border-soft); border-radius: var(--r-lg);
+             background: var(--card); text-decoration: none;
+             transition: border-color .2s ease, background .2s ease, transform .2s ease; }
+  .pager a:hover { border-color: var(--border); background: var(--card-deep); transform: translateY(-2px); }
+  .pager .pg-k { font-size: 12px; font-weight: 600; letter-spacing: 0.07em;
+                 text-transform: uppercase; color: var(--faint); }
+  .pager .pg-t { font-family: 'Manrope', system-ui, sans-serif; font-weight: 700;
+                 font-size: 18px; color: var(--text); }
+  .pager a.next { align-items: flex-end; text-align: right; }
+  @media (max-width: 600px) { .pager { grid-template-columns: 1fr; }
+    .pager a.next { align-items: flex-start; text-align: left; } }
+
+  footer { padding: 48px 0; border-top: 1px solid var(--border-soft);
            color: var(--faint); font-size: 14px; }
-  .footer-inner { display: flex; flex-wrap: wrap; gap: 10px 26px;
-                  justify-content: space-between; }
   footer a { color: var(--muted); text-decoration: none; }
   footer a:hover { color: var(--text); }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 36px;
+                 padding-bottom: 36px; }
+  .footer-brand p { max-width: 34ch; margin-top: 12px; font-size: 14px; color: var(--faint); }
+  .footer-col { display: flex; flex-direction: column; gap: 11px; }
+  .footer-col b { color: var(--text); font-size: 12.5px; font-weight: 600;
+                  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+  .footer-col a { font-size: 14.5px; }
+  .footer-bottom { display: flex; flex-wrap: wrap; gap: 8px 26px;
+                   justify-content: space-between; padding-top: 26px;
+                   border-top: 1px solid var(--border-soft); }
+  @media (max-width: 820px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; gap: 28px; } }
 
   /* Reveal по скроллу (reduced-motion уважается в JS) */
   .rv { opacity: 0; transform: translateY(16px);
@@ -263,8 +306,13 @@
     <div class="wrap nav-inner">
       <a class="nav-logo" href="index.html" aria-label="МОНОЛИТ — на главную">
         <img src="assets/avatar.png" alt="" width="34" height="34" />
-        МОНОЛИТ
+        <span>МОНОЛИТ</span>
       </a>
+      <div class="nav-links" aria-label="Разделы сайта">
+        <a class="nav-opt" href="index.html">Приложение</a>
+        <a href="product.html" aria-current="page">Инвесторам</a>
+        <a class="nav-mid" href="support.html">Поддержать</a>
+      </div>
       <div class="nav-actions">
         <a class="btn btn-primary" href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">Написать<span class="nav-label-long">основателю</span></a>
       </div>
@@ -359,8 +407,9 @@
         <article class="feature rv" style="--d:.15s">
           <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
           <h3>Время и фокус</h3>
-          <p>Таймер работы по заказу и этапу, фокус-режим с учётом глубины
-          концентрации, личная статистика и реальная ставка ₽/час.</p>
+          <p>Таймер работы по заказу и этапу, фокус-режим, личная статистика.
+          Ставка ₽/час считается честно — медианой по заказам, без красивых
+          цифр из воздуха.</p>
         </article>
         <article class="feature rv" style="--d:.2s">
           <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
@@ -374,7 +423,31 @@
           <p>База живёт на устройстве и работает офлайн. Облако видит только
           шифртекст. Экспорт в один тап — никакого «заложника платформы».</p>
         </article>
+        <article class="feature rv" style="--d:.05s">
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M2 15h10"/><path d="m9 18 3-3-3-3"/></svg></span>
+          <h3>Налоги по режиму</h3>
+          <p>НПД, УСН или ИП: налог считается под режим пользователя, «что если»
+          сравнивает режимы в деньгах, приложение напоминает отложить на налог.</p>
+        </article>
+        <article class="feature rv" style="--d:.1s">
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg></span>
+          <h3>Команда и подрядчики</h3>
+          <p>Расчётная ведомость вместо визиток: кто что делал, сколько начислено
+          и выплачено, с кем не рассчитались. Этапы заказов — с ответственными
+          и сроками.</p>
+        </article>
+        <article class="feature rv" style="--d:.15s">
+          <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>
+          <h3>Windows-версия</h3>
+          <p>Не растянутая мобилка: раскладки под монитор — «Пульс дела»,
+          картотека клиентов, ведомость команды. Один код, одна база,
+          общий синк.</p>
+        </article>
       </div>
+      <div class="shot-frame rv">
+        <img src="assets/desktop-pulse.jpg" alt="Windows-версия МОНОЛИТ, экран «Пульс дела»: доход за месяц, график, список «Что горит», должники и ритм работы" loading="lazy" decoding="async" />
+      </div>
+      <p class="shot-cap rv">Живой экран Windows-беты: «Пульс дела» на демо-данных — доход, «что горит», должники, налог и ритм работы</p>
     </div>
   </section>
 
@@ -391,8 +464,9 @@
           <div class="phase-rail"><div class="phase-dot">✓</div></div>
           <div class="phase-body">
             <h3>Сегодня: рабочее ядро<span class="phase-chip">работает</span></h3>
-            <p>Ассистент → заказы → финансы → напоминания → команда с шифрованием.
-            Бета в RuStore, обновления еженедельно, 300+ автотестов.</p>
+            <p>Ассистент → заказы → финансы и налоги → напоминания → команда с
+            шифрованием. Бета Android в RuStore, Windows-бета, автообновление,
+            474 автотеста, релизы еженедельно.</p>
           </div>
         </div>
         <div class="phase next rv" style="--d:.06s">
@@ -513,9 +587,10 @@
       </div>
       <div class="status rv" style="--d:.06s">
         <span class="status-chip"><b class="ok">●</b> Рабочая бета <b>Android</b>, опубликована в RuStore</span>
-        <span class="status-chip"><b>300+</b> автотестов, релизы еженедельно</span>
+        <span class="status-chip"><b class="ok">●</b> <b>Windows-бета</b> — тот же код, раскладки под монитор</span>
+        <span class="status-chip"><b>474</b> автотеста, релизы еженедельно, автообновление</span>
         <span class="status-chip">Шифрование базы и синка — <b>в проде</b></span>
-        <span class="status-chip">iOS, веб и Windows — <b>в плане</b>, код кроссплатформенный</span>
+        <span class="status-chip">iOS и веб — <b>в плане</b>, код кроссплатформенный</span>
         <span class="status-chip">Стадия — <b>pre-seed</b>, соло-основатель</span>
       </div>
     </div>
@@ -539,10 +614,48 @@
     </div>
   </section>
 
+  <div class="wrap pager" aria-label="Дальше по сайту">
+    <a href="index.html">
+      <span class="pg-k">Назад</span>
+      <span class="pg-t">← Главная — что умеет приложение</span>
+    </a>
+    <a class="next" href="support.html">
+      <span class="pg-k">Дальше</span>
+      <span class="pg-t">Поддержать разработку →</span>
+    </a>
+  </div>
+
   <footer>
-    <div class="wrap footer-inner">
-      <span>© 2026 МОНОЛИТ · Основатель — Савелий Бубнов · <a href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">@sbphotoshoter</a></span>
-      <span><a href="index.html">На главную</a> · <a href="support.html">Поддержать</a> · <a href="privacy.html">Конфиденциальность</a></span>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="nav-logo" href="index.html"><img src="assets/avatar.png" alt="" width="34" height="34" /><span>МОНОЛИТ</span></a>
+          <p>AI-оператор для дела: говоришь как есть — получаешь заказы, деньги и напоминания.</p>
+        </div>
+        <nav class="footer-col" aria-label="Продукт">
+          <b>Продукт</b>
+          <a href="index.html">Главная</a>
+          <a href="index.html#features">Возможности</a>
+          <a href="index.html#numbers">Живые цифры</a>
+          <a href="https://www.rustore.ru/catalog/app/ru.monolithapp.assistant" target="_blank" rel="noopener">Приложение в RuStore</a>
+        </nav>
+        <nav class="footer-col" aria-label="Партнёрам">
+          <b>Партнёрам</b>
+          <a href="product.html" aria-current="page">Инвесторам · продукт и план</a>
+          <a href="support.html">Поддержать разработку</a>
+          <a href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">Написать основателю</a>
+        </nav>
+        <nav class="footer-col" aria-label="Связь и право">
+          <b>Связь и право</b>
+          <a href="https://t.me/monolithappru" target="_blank" rel="noopener">Канал разработки</a>
+          <a href="privacy.html">Политика конфиденциальности</a>
+          <a href="mailto:hazzy2535@gmail.com">hazzy2535@gmail.com</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 МОНОЛИТ · Основатель — Савелий Бубнов · <a href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">@sbphotoshoter</a></span>
+        <span>Продакшен MONOLITH7 · Москва</span>
+      </div>
     </div>
   </footer>
 
