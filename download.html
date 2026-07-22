@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МОНОЛИТ — Скачать приложение</title>
+<meta name="description" content="Скачать МОНОЛИТ: актуальная версия для Windows, ссылка на установщик и история версий с описанием изменений. Android — в RuStore.">
+<meta name="theme-color" content="#08080B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="МОНОЛИТ — скачать приложение">
+<meta property="og:description" content="Актуальная версия для Windows, прямая ссылка на установщик и история версий. Бесплатная бета.">
+<meta property="og:url" content="https://hazzy3525-create.github.io/monolith/download.html">
+<meta property="og:image" content="https://hazzy3525-create.github.io/monolith/assets/og.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hazzy3525-create.github.io/monolith/assets/og.jpg">
+<style>
+  /* Дизайн-база v2: индиго × эмбер на обсидиане (DESIGN_RULES.md) */
+  :root {
+    --bg:#08080B; --bg-top:#0E0E15; --card:#0E0E15; --card-alt:#191922;
+    --accent:#6E59F0; --accent-bright:#8B78FF; --ember:#F5A623; --ember-deep:#E8890C;
+    --text:#F5F5F7; --muted:#A0A3B4; --muted2:#6B6E80;
+    --edge:rgba(255,255,255,0.08);
+    --positive:#34C77B;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { overflow-x:clip; scroll-behavior:smooth; }
+  body { background:linear-gradient(180deg, var(--bg-top) 0%, var(--bg) 40%, #060608 100%);
+         min-height:100vh; color:var(--text);
+         font-family:'Inter',-apple-system,'Segoe UI',Roboto,sans-serif;
+         line-height:1.65; padding:128px 20px 80px; -webkit-font-smoothing:antialiased; }
+  main { max-width:720px; margin:0 auto; }
+
+  /* ── Навбар (общая шапка сайта) ─────────────────────── */
+  .nav { position:fixed; top:0; left:0; right:0; z-index:50;
+         background:rgba(8,8,11,0.74); backdrop-filter:blur(14px);
+         -webkit-backdrop-filter:blur(14px);
+         border-bottom:1px solid rgba(255,255,255,0.07); }
+  .nav-wrap { max-width:1140px; margin:0 auto; padding:0 24px; height:64px;
+              display:flex; align-items:center; justify-content:space-between; }
+  .nav-logo { display:flex; align-items:center; gap:10px; color:var(--text);
+              text-decoration:none; font-weight:800; letter-spacing:1px; }
+  .nav-logo .logo-mark { width:32px; height:32px; border-radius:9px; font-size:17px; }
+  .nav-links { display:flex; align-items:center; gap:2px; }
+  .nav-links a { padding:9px 13px; border-radius:9px; font-size:15px; font-weight:500;
+                 color:var(--muted); text-decoration:none;
+                 transition:color .2s ease, background .2s ease; }
+  .nav-links a:hover { color:var(--text); background:rgba(110,89,240,0.09); }
+  .nav-links a[aria-current="page"] { color:var(--text); }
+  .nav-cta { display:inline-flex; align-items:center; min-height:40px; padding:0 18px;
+             border-radius:20px; background:var(--accent); color:#fff; font-weight:700;
+             font-size:14.5px; text-decoration:none; white-space:nowrap;
+             transition:background .2s ease, transform .2s ease; }
+  .nav-cta:hover { background:var(--accent-bright); transform:translateY(-1px); }
+  @media (max-width:760px) {
+    .nav-links .nav-opt { display:none; }
+    .nav-links a { padding:8px 10px; font-size:14px; }
+  }
+  @media (max-width:600px) { .nav-links .nav-mid { display:none; } }
+  @media (max-width:420px) { .nav-logo span { display:none; } }
+
+  .eyebrow { color:var(--muted2); font-size:12px; letter-spacing:3px;
+             text-transform:uppercase; font-weight:600; margin-bottom:10px; }
+  h1 { font-size:clamp(30px,6vw,44px); font-weight:800; letter-spacing:-1px;
+       line-height:1.12; margin-bottom:16px; }
+  .lead { color:var(--muted); font-size:17px; margin-bottom:34px; max-width:58ch; }
+  .lead strong { color:var(--text); font-weight:600; }
+
+  /* ── Карточка актуальной версии ─────────────────────── */
+  .dl-hero { position:relative; overflow:hidden;
+             background:linear-gradient(135deg, rgba(110,89,240,0.16), rgba(110,89,240,0.05));
+             border:1px solid rgba(110,89,240,0.35); border-radius:22px;
+             padding:34px 34px 30px; margin-bottom:16px; }
+  .dl-hero-glow { position:absolute; top:-140px; right:-100px; width:420px; height:360px;
+                  background:radial-gradient(closest-side, rgba(110,89,240,0.22), transparent 70%);
+                  pointer-events:none; }
+  .badge-now { display:inline-block; padding:6px 14px; border-radius:100px;
+               background:rgba(110,89,240,0.20); color:var(--accent-bright);
+               font-size:11.5px; font-weight:600; letter-spacing:.06em;
+               text-transform:uppercase; margin-bottom:16px; }
+  .dl-ver { font-size:clamp(32px,7vw,46px); font-weight:800; letter-spacing:-1.2px;
+            line-height:1.05; position:relative; }
+  .dl-ver small { font-size:0.4em; color:var(--muted); font-weight:600;
+                  letter-spacing:0; margin-left:8px; }
+  .dl-kicker { color:var(--accent-bright); font-weight:700; font-size:16px;
+               margin:6px 0 2px; }
+  .dl-feats { list-style:none; margin:20px 0 26px; display:grid; gap:11px; }
+  .dl-feats li { position:relative; padding-left:30px; color:var(--muted); font-size:15px; }
+  .dl-feats li strong { color:var(--text); font-weight:600; }
+  .dl-feats li::before { content:""; position:absolute; left:2px; top:6px;
+                         width:14px; height:14px; border-radius:50%;
+                         background:rgba(110,89,240,0.22);
+                         box-shadow:inset 0 0 0 2px var(--accent-bright); }
+  .btn-indigo { display:inline-flex; align-items:center; justify-content:center; gap:11px;
+                max-width:100%; min-height:56px; padding:14px 32px; border-radius:28px;
+                background:linear-gradient(135deg, var(--accent-bright), var(--accent));
+                color:#fff; font-weight:700; font-size:17px; text-decoration:none;
+                box-shadow:0 10px 34px rgba(110,89,240,0.32),
+                           inset 0 1px 0 rgba(255,255,255,0.22);
+                transition:transform .15s cubic-bezier(.23,1,.32,1), box-shadow .15s; }
+  .btn-indigo:hover { transform:translateY(-1px);
+                      box-shadow:0 14px 40px rgba(110,89,240,0.40),
+                                 inset 0 1px 0 rgba(255,255,255,0.22); }
+  .btn-indigo:active { transform:scale(0.99); }
+  .btn-indigo svg { flex:none; }
+  .dl-meta { margin-top:14px; color:var(--muted2); font-size:13.5px; line-height:1.7; }
+  .dl-meta b { color:var(--muted); font-weight:600; }
+
+  /* ── Карточка Android ───────────────────────────────── */
+  .card { background:var(--card); border:1px solid var(--edge);
+          border-radius:20px; padding:26px 28px; margin-bottom:16px;
+          box-shadow:inset 0 1px 0 rgba(255,255,255,0.04); }
+  .card h2 { font-size:18px; font-weight:700; letter-spacing:-0.3px; margin-bottom:8px; }
+  .card p { color:var(--muted); font-size:15px; }
+  .card .links { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; }
+  .btn-ghost { display:inline-flex; align-items:center; min-height:46px; padding:0 22px;
+               border-radius:23px; border:1px solid var(--edge); color:var(--text);
+               font-weight:600; font-size:15px; text-decoration:none;
+               transition:border-color .15s, background .15s; }
+  .btn-ghost:hover { border-color:rgba(255,255,255,0.22); background:rgba(255,255,255,0.04); }
+
+  /* ── История версий ─────────────────────────────────── */
+  .rel-title { font-size:20px; font-weight:800; letter-spacing:-0.4px;
+               margin:38px 0 18px; }
+  .rel-item { background:var(--card); border:1px solid var(--edge);
+              border-radius:16px; padding:20px 22px; margin-bottom:12px; }
+  .rel-head { display:flex; align-items:baseline; gap:12px; margin-bottom:12px;
+              flex-wrap:wrap; }
+  .rel-ver { font-weight:800; font-size:18px; letter-spacing:-0.3px; }
+  .rel-date { color:var(--muted2); font-size:13px; }
+  .rel-list { list-style:none; display:grid; gap:8px; }
+  .rel-list li { position:relative; padding-left:20px; color:var(--muted);
+                 font-size:14.5px; line-height:1.5; }
+  .rel-list li::before { content:""; position:absolute; left:2px; top:9px;
+                         width:6px; height:6px; border-radius:50%; background:var(--muted2); }
+
+  /* ── Переключалка страниц ───────────────────────────── */
+  .pager { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:48px; }
+  .pager a { display:flex; flex-direction:column; gap:5px; padding:20px 22px;
+             border:1px solid var(--edge); border-radius:18px; background:var(--card);
+             text-decoration:none;
+             transition:border-color .2s ease, background .2s ease, transform .2s ease; }
+  .pager a:hover { border-color:rgba(110,89,240,0.4); background:var(--card-alt);
+                   transform:translateY(-2px); }
+  .pager .pg-k { font-size:11.5px; font-weight:600; letter-spacing:.07em;
+                 text-transform:uppercase; color:var(--muted2); }
+  .pager .pg-t { font-weight:700; font-size:16px; color:var(--text); }
+  .pager a.next { align-items:flex-end; text-align:right; }
+  @media (max-width:560px) { .pager { grid-template-columns:1fr; }
+    .pager a.next { align-items:flex-start; text-align:left; } }
+
+  .footer { margin-top:32px; padding-top:24px; border-top:1px solid var(--edge);
+            color:var(--muted2); font-size:14px; line-height:2; }
+  .footer a { color:var(--muted); text-decoration:none; }
+  .footer a:hover { color:var(--text); }
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Основная навигация">
+  <div class="nav-wrap">
+    <a class="nav-logo" href="index.html" aria-label="МОНОЛИТ — на главную">
+      <div class="logo-mark" style="background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;">М</div>
+      <span>МОНОЛИТ</span>
+    </a>
+    <div class="nav-links" aria-label="Разделы сайта">
+      <a class="nav-opt" href="index.html">Приложение</a>
+      <a href="download.html" aria-current="page">Скачать</a>
+      <a href="product.html">Инвесторам</a>
+      <a class="nav-mid" href="support.html">Поддержать</a>
+    </div>
+    <a class="nav-cta" href="https://t.me/monolithappru" target="_blank" rel="noopener">Канал</a>
+  </div>
+</nav>
+<main>
+
+  <p class="eyebrow">Бесплатная бета · Windows и Android</p>
+  <h1>Скачать МОНОЛИТ</h1>
+  <p class="lead"><strong>Поставь один раз — дальше приложение обновляется само.</strong>
+  Windows-версию можно скачать прямо здесь, Android — в RuStore или свежей сборкой по запросу.</p>
+
+  <div class="dl-hero">
+    <div class="dl-hero-glow" aria-hidden="true"></div>
+    <span class="badge-now">Актуальная версия</span>
+    <div class="dl-ver">1.4.10<small>beta · 22.07.2026</small></div>
+    <p class="dl-kicker">Крепкий вход</p>
+    <ul class="dl-feats">
+      <li><strong>Шифрование локальной базы</strong> прямо на устройстве, ключ в аппаратном хранилище Windows (включается плавно)</li>
+      <li><strong>Вход по биометрии</strong> — Windows Hello, отпечаток или лицо, пароль как запасной путь</li>
+      <li><strong>Автоблокировка</strong>, когда сворачиваешь окно или отходишь от компьютера</li>
+      <li><strong>Честный экран запуска</strong> — видно, что реально включено</li>
+    </ul>
+    <a class="btn-indigo" href="https://jkdrnaagjplpyhlsmxii.supabase.co/storage/v1/object/public/releases/windows/MONOLITH_Setup_1.4.10.exe" download>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+      Скачать для Windows · 14,8 МБ
+    </a>
+    <p class="dl-meta">
+      Установщик <b>MONOLITH_Setup_1.4.10.exe</b>. Первый запуск: Windows покажет
+      SmartScreen — нажми <b>«Подробнее» → «Выполнить в любом случае»</b>
+      (приложение новое и без платной подписи кода, это нормально).
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Android</h2>
+    <p>Приложение в RuStore. Самую свежую сборку можно получить файлом по запросу — напиши основателю.</p>
+    <div class="links">
+      <a class="btn-ghost" href="https://www.rustore.ru/catalog/app/ru.monolithapp.assistant" target="_blank" rel="noopener">Открыть в RuStore&nbsp;→</a>
+      <a class="btn-ghost" href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">Свежая сборка · @sbphotoshoter</a>
+    </div>
+  </div>
+
+  <h2 class="rel-title">История версий</h2>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.8</span><span class="rel-date">21.07.2026</span></div>
+    <ul class="rel-list">
+      <li>«Подрядчики»: карточки больше не наезжают друг на друга, имя и ставка читаются целиком, два действия собраны в одно меню.</li>
+      <li>Верх окна называет именно то, что открыто, а не соседний раздел, и рядом появилась кнопка «Назад».</li>
+      <li>Плотный режим: доход по месяцам собран в аккуратную таблицу.</li>
+    </ul>
+  </div>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.7</span><span class="rel-date">21.07.2026</span></div>
+    <ul class="rel-list">
+      <li>Тихое обновление прямо из приложения: новая версия скачивается, проверяется по контрольной сумме и ставится сама, без похода на сайт.</li>
+      <li>Экран «Новости» пересобран: аварийные сообщения и история версий приходят в одну ленту.</li>
+    </ul>
+  </div>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.6</span><span class="rel-date">21.07.2026</span></div>
+    <ul class="rel-list">
+      <li>Первый установщик для Windows: ставится в два клика и обновляется сам.</li>
+      <li>Команда стала расчётной: в ведомости виден долг по каждому человеку.</li>
+      <li>Ставка часа считается медианой по заказам, а не общим котлом.</li>
+    </ul>
+  </div>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.5</span><span class="rel-date">21.07.2026</span></div>
+    <ul class="rel-list">
+      <li>По каждому подрядчику видно, сколько начислено, выплачено и сколько вы ему должны.</li>
+      <li>Финансовая схема собрана в мастер-деталь: выбор режима и ставок слева, живой итог и сравнение налоговых режимов справа.</li>
+    </ul>
+  </div>
+
+  <div class="pager" aria-label="Дальше по сайту">
+    <a href="index.html">
+      <span class="pg-k">Назад</span>
+      <span class="pg-t">← Главная — что умеет приложение</span>
+    </a>
+    <a class="next" href="product.html">
+      <span class="pg-k">Дальше</span>
+      <span class="pg-t">Продукт и план для инвесторов →</span>
+    </a>
+  </div>
+
+  <div class="footer">
+    МОНОЛИТ — AI-оператор для вашего дела<br>
+    <a href="index.html">Главная</a> ·
+    <a href="download.html" aria-current="page">Скачать</a> ·
+    <a href="product.html">Инвесторам</a> ·
+    <a href="support.html">Поддержать</a> ·
+    <a href="https://t.me/monolithappru" target="_blank" rel="noopener">Канал разработки</a><br>
+    © 2026 МОНОЛИТ · Основатель — Савелий Бубнов · <a href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">@sbphotoshoter</a>
+  </div>
+</main>
+</body>
+</html>
