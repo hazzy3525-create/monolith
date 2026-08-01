@@ -570,6 +570,46 @@
       font-weight: 600;
     }
 
+    /* ── Свежий релиз ───────────────────────────────────────
+       Один фокус: номер версии и кнопка. Список изменений —
+       второй ярус (меньше, приглушённее), даты живут в eyebrow. */
+    .release {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(230px, 300px) 1fr;
+      gap: 40px;
+      align-items: start;
+      background: var(--card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--r-lg);
+      padding: 38px 40px;
+      overflow: hidden;
+    }
+    .release-glow {
+      position: absolute; top: -150px; left: -80px;
+      width: 420px; height: 340px;
+      background: radial-gradient(closest-side, rgba(108, 99, 255, 0.20), transparent 72%);
+      pointer-events: none;
+    }
+    .release-ver { position: relative; font-size: 46px; font-weight: 800; letter-spacing: -1.4px; line-height: 1; }
+    .release-date { color: var(--faint); font-size: 14px; margin-top: 8px; }
+    .release-cta { display: inline-flex; margin-top: 22px; }
+    .release-list { list-style: none; display: grid; gap: 14px; }
+    .release-list li { position: relative; padding-left: 26px; color: var(--muted); font-size: 15.5px; line-height: 1.55; }
+    .release-list li b { color: var(--text); font-weight: 600; }
+    .release-list li::before {
+      content: ""; position: absolute; left: 0; top: 8px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(108, 99, 255, 0.2);
+      box-shadow: inset 0 0 0 2px var(--primary-strong);
+    }
+    .release-foot { margin-top: 22px; color: var(--faint); font-size: 14.5px; }
+    .release-foot a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border-soft); }
+    .release-foot a:hover { color: var(--text); }
+    @media (max-width: 820px) {
+      .release { grid-template-columns: 1fr; gap: 26px; padding: 30px 24px; }
+    }
+
     /* ── Скриншоты ──────────────────────────────────────── */
     .screens {
       display: flex;
@@ -580,6 +620,11 @@
     .screen-item { text-align: center; }
     .screen-item .phone { width: 264px; margin: 0 auto 22px; }
     .screen-item .cap { color: var(--muted); font-size: 15.5px; font-weight: 500; }
+    /* Четыре кадра в ряд: телефон уже, воздух между ними меньше — иначе
+       ряд рвётся на 3+1 и последний экран выглядит сноской. */
+    .screens.four { gap: 34px; }
+    .screens.four .screen-item .phone { width: 232px; }
+    .screens.four .screen-item .cap { font-size: 14.5px; max-width: 232px; margin: 0 auto; }
 
     /* ── Финальный CTA ──────────────────────────────────── */
     .final {
@@ -706,6 +751,9 @@
     .stat:hover { transform: translateY(-3px); border-color: var(--border); background: var(--card-deep); }
     .stat-val { display: block; font-size: clamp(26px, 3vw, 36px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.04; white-space: nowrap; }
     .stat-label { margin-top: 12px; color: var(--muted); font-size: 15px; }
+    /* Свежие метрики идут парой во всю ширину ряда: ряд из двух карточек
+       вровень с остальными выглядел бы обрубком сетки. */
+    .stat-wide { grid-column: span 2; }
     .stat-hero {
       grid-column: span 2;
       background: linear-gradient(135deg, rgba(108, 99, 255, 0.16), rgba(108, 99, 255, 0.05));
@@ -729,7 +777,8 @@
     }
     @media (max-width: 600px) {
       .stats-grid { grid-template-columns: 1fr; }
-      .stat-hero { grid-column: span 1; }
+      /* Одна колонка: span 2 выносит карточку за сетку и режет её по краю. */
+      .stat-hero, .stat-wide { grid-column: span 1; }
       .reliability { grid-template-columns: 1fr; }
       .rel-label { font-size: 13.5px; }
     }
@@ -899,7 +948,7 @@
         <article class="feature rv" style="--d:.12s">
           <span class="feature-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>
           <h3>И на компьютере тоже</h3>
-          <p>Windows-версия в бете: навигация слева, «Пульс дела» на весь монитор. База общая с телефоном, фичи выходят на обе платформы сразу.</p>
+          <p>Windows-версия скачивается с сайта и дальше обновляется сама: навигация слева, «Пульс дела» на весь монитор, база на диске зашифрована. Фичи выходят на обе платформы одним релизом.</p>
         </article>
       </div>
     </div>
@@ -984,12 +1033,16 @@
           <p class="stat-label">Синхронизаций зашифровано</p>
         </div>
         <div class="stat">
-          <span class="stat-val num" data-key="documents_created" data-fmt="int">—</span>
-          <p class="stat-label">Документов создано</p>
-        </div>
-        <div class="stat">
           <span class="stat-val num" data-key="voice_notes" data-fmt="int">—</span>
           <p class="stat-label">Голосовых надиктовано</p>
+        </div>
+        <div class="stat stat-wide">
+          <span class="stat-val num" data-key="app_opens" data-fmt="int">—</span>
+          <p class="stat-label">Раз приложение открывали, чтобы вести дело</p>
+        </div>
+        <div class="stat stat-wide">
+          <span class="stat-val num" data-key="syncs_enabled" data-fmt="int">—</span>
+          <p class="stat-label">Устройств включили синхронизацию между телефоном и компьютером</p>
         </div>
       </div>
 
@@ -1017,19 +1070,32 @@
     <div class="wrap">
       <div class="sec-head center rv">
         <h2 id="screens-title">Это настоящие экраны приложения</h2>
+        <p>Телефон, версия 1.4.21. Снято с живого приложения на демо-данных — ничего не дорисовано.</p>
       </div>
-      <div class="screens">
+      <div class="screens four">
         <div class="screen-item rv">
           <div class="phone">
-            <img src="assets/work_board.png" alt="Скриншот: доска заказов МОНОЛИТ — карточки проектов со статусами" decoding="async" />
+            <img src="assets/mobile-pulse.jpg" alt="Экран «Пульс дела» на телефоне: доход за месяц 688 464 ₽, список «Что горит» с просрочками, заказы в работе и ждущие оплаты" decoding="async" />
           </div>
-          <p class="cap">Доска проектов</p>
+          <p class="cap">Пульс: доход, что горит, кто должен</p>
         </div>
-        <div class="screen-item rv" style="--d:.1s">
+        <div class="screen-item rv" style="--d:.08s">
           <div class="phone">
-            <img src="assets/finance.png" alt="Скриншот: финансы МОНОЛИТ — прибыль, доходы, расходы и прогноз" decoding="async" />
+            <img src="assets/mobile-assistant.jpg" alt="Ассистент на телефоне: команда «перенеси срок оплаты счёта» и карточка подтверждения «Изменить платёж по Ролик для Газпрома? срок 15.08» с кнопками «Отмена» и «Изменить»" decoding="async" />
           </div>
-          <p class="cap num">Финансы: доход · расход · прибыль</p>
+          <p class="cap">Ассистент спрашивает перед каждым действием</p>
+        </div>
+        <div class="screen-item rv" style="--d:.16s">
+          <div class="phone">
+            <img src="assets/mobile-money.jpg" alt="Экран «Деньги» на телефоне: чистыми за всё время 2 474 000 ₽, маржа 86%, в работе 2,7 млн, ждут оплаты 1 742 600 ₽" decoding="async" />
+          </div>
+          <p class="cap num">Деньги: чистыми, в работе, ждут оплаты</p>
+        </div>
+        <div class="screen-item rv" style="--d:.24s">
+          <div class="phone">
+            <img src="assets/mobile-nav.jpg" alt="Навигатор на телефоне: выдвижная панель с разделами Пульс, Работа, Ассистент, Клиенты, Важное, Сообщения, Проверка, Деньги и переключателем «Левая рука / Правая рука»" decoding="async" />
+          </div>
+          <p class="cap">Навигатор под большой палец — левый или правый</p>
         </div>
       </div>
     </div>
@@ -1040,25 +1106,52 @@
     <div class="wrap">
       <div class="sec-head center rv">
         <h2 id="desktop-title">Тот же МОНОЛИТ — на большом экране</h2>
-        <p>Windows-версия в бете: каждый раздел пересобран под монитор, а не растянут с телефона. База общая с Android, синхронизация зашифрована, фичи выходят на обе платформы сразу.</p>
+        <p>Windows-версия скачивается прямо с сайта и обновляется сама, без похода за новым установщиком. Каждый раздел пересобран под монитор, а не растянут с телефона: база общая с Android, синхронизация зашифрована, фичи выходят на обе платформы одним релизом.</p>
       </div>
       <div class="video-frame rv" style="--d:.08s">
-        <img src="assets/desktop-pulse.jpg" alt="Windows-версия МОНОЛИТ, экран «Пульс дела»: доход за месяц 1 292 720 ₽, график по месяцам, список «Что горит», должники и ритм работы" loading="lazy" decoding="async" style="display:block;width:100%;border-radius:12px;" />
+        <img src="assets/desktop-pulse.jpg" alt="Windows-версия МОНОЛИТ, экран «Пульс дела»: доход за месяц 688 464 ₽, график по месяцам, список «Что горит» с просрочками, ждут оплаты 1 742 600 ₽ и налог НПД" loading="lazy" decoding="async" style="display:block;width:100%;border-radius:12px;" />
       </div>
-      <p class="shot-cap rv">«Пульс дела» — весь бизнес на одном экране: доход, «что горит», кто должен и сколько наработано</p>
+      <p class="shot-cap rv">«Пульс дела» — весь бизнес на одном экране: доход, «что горит», кто должен и сколько отложить на налог</p>
       <div class="shot-grid rv" style="--d:.12s">
         <figure>
-          <img src="assets/desktop-clients.jpg" alt="Windows-версия МОНОЛИТ, раздел «Клиенты»: картотека из 10 клиентов, досье с деньгами и заказами, списки «Ждём от клиентов» и «Кто приносит доход»" loading="lazy" decoding="async" />
-          <figcaption>Клиенты: картотека, досье и долги</figcaption>
+          <img src="assets/desktop-assistant.jpg" alt="Windows-версия МОНОЛИТ, экран «Ассистент»: команда «запиши расход 2 000 рублей на бензин по заказу Ролик для ГазТех Медиа» и карточка подтверждения с кнопками «Отмена» и «Записать»" loading="lazy" decoding="async" />
+          <figcaption>Ассистент: карточка перед каждым действием</figcaption>
         </figure>
         <figure>
-          <img src="assets/desktop-money.jpg" alt="Windows-версия МОНОЛИТ, раздел «Деньги»: операционная прибыль 889 720 ₽, лестница от выручки к прибыли, касса и график «пришло против признанного»" loading="lazy" decoding="async" />
+          <img src="assets/desktop-money.jpg" alt="Windows-версия МОНОЛИТ, раздел «Деньги»: операционная прибыль 685 464 ₽, лестница от выручки к прибыли, касса и график «пришло против признанного»" loading="lazy" decoding="async" />
           <figcaption>Деньги: от выручки до прибыли, касса и налог</figcaption>
         </figure>
         <figure>
-          <img src="assets/desktop-team.jpg" alt="Windows-версия МОНОЛИТ, раздел «Команда»: расчётная ведомость — долг людям 145 000 ₽, ставки, статусы выплат и деталь человека с этапами" loading="lazy" decoding="async" />
-          <figcaption>Команда: с кем не рассчитались и почему</figcaption>
+          <img src="assets/desktop-clients.jpg" alt="Windows-версия МОНОЛИТ, раздел «Клиенты»: картотека из 13 клиентов, средний чек 192 000 ₽, досье с деньгами и заказами" loading="lazy" decoding="async" />
+          <figcaption>Клиенты: картотека, досье и долги</figcaption>
         </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Свежий релиз: что приехало в приложение на этой неделе -->
+  <section id="release" aria-labelledby="release-title">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <h2 id="release-title">Что приехало в приложение</h2>
+        <p>Релизы выходят каждую неделю, установленные копии обновляются сами.</p>
+      </div>
+      <div class="release rv" style="--d:.06s">
+        <div class="release-glow" aria-hidden="true"></div>
+        <div>
+          <div class="release-ver num">1.4.21</div>
+          <p class="release-date">1 августа 2026 · Windows и Android</p>
+          <a class="btn btn-primary release-cta" href="download.html">Скачать</a>
+        </div>
+        <div>
+          <ul class="release-list">
+            <li><b>Ассистент правит записанное, а не только заводит новое.</b> Сумма расхода, оплата счёта, перенос срока, часы работы, гонорар человека на заказе, возврат из корзины.</li>
+            <li><b>Карточка перед каждым действием</b> называет его словами: «Записать расход 2 000 ₽ · бензин · заказ ГазТех». Пока не нажал — в базе ничего не изменилось.</li>
+            <li><b>Голос на телефоне считает сам телефон.</b> Речь не уходит на сторону и не обрывается на паузах, диктовать можно длинно.</li>
+            <li><b>Ответы стали быстрее</b>, а если ответ идёт дольше пяти секунд — видно, сколько именно секунд прошло.</li>
+          </ul>
+          <p class="release-foot">Прошлые версии — в <a href="download.html#history">истории версий</a>. Как всё это делалось, с провалами и замерами, — в <a href="blog/index.html">дневнике разработки</a>.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1297,7 +1390,8 @@
       var STATS_SAMPLE = {
         money_tracked: 4820000, expenses_tracked: 1310000, orders_processed: 137,
         people_activated: 54, records_encrypted: 9648, syncs_encrypted: 2140,
-        documents_created: 212, voice_notes: 389, downtime_seconds: 74, failures_total: 61
+        documents_created: 212, voice_notes: 389, downtime_seconds: 74, failures_total: 61,
+        app_opens: 1470, syncs_enabled: 96, days_live: 120
       };
 
       var statsBand = document.querySelector(".stats-band");

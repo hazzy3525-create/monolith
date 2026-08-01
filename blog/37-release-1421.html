@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ассистент научился исправлять, а не только записывать — МОНОЛИТ</title>
+<meta name="description" content="Раньше ассистент только записывал. Теперь исправляет. Пять месяцев он умел только заводить новое. А правят данные чаще, чем заводят. Теперь ему говорят как человеку: «бензин был 3 000, а не 2», «счёт ">
+<meta name="theme-color" content="#08080B">
+<link rel="canonical" href="https://hazzy3525-create.github.io/monolith/blog/37-release-1421.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ассистент научился исправлять, а не только записывать">
+<meta property="og:description" content="Раньше ассистент только записывал. Теперь исправляет. Пять месяцев он умел только заводить новое. А правят данные чаще, чем заводят. Теперь ему говорят как человеку: «бензин был 3 000, а не 2», «счёт ">
+<meta property="og:url" content="https://hazzy3525-create.github.io/monolith/blog/37-release-1421.html">
+<meta property="og:image" content="https://hazzy3525-create.github.io/monolith/blog/media/37-release-1421.png">
+<meta property="og:locale" content="ru_RU">
+<link rel="alternate" type="application/rss+xml" title="МОНОЛИТ — дневник разработки" href="https://hazzy3525-create.github.io/monolith/feed.xml">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+<nav class="nav" aria-label="Основная навигация">
+  <div class="nav-wrap">
+    <a class="nav-logo" href="../index.html" aria-label="МОНОЛИТ — на главную">
+      <div class="logo-mark">М</div><span>МОНОЛИТ</span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">Приложение</a>
+      <a href="../download.html">Скачать</a>
+      <a href="index.html" aria-current="page">Дневник</a>
+    </div>
+    <a class="nav-cta" href="https://t.me/monolithappru" target="_blank" rel="noopener">Канал</a>
+  </div>
+</nav>
+<main>
+  <article>
+    <p class="eyebrow">Дневник разработки · 01.08.2026</p>
+    <h1>Ассистент научился исправлять, а не только записывать</h1>
+    <img src="media/37-release-1421.png" alt="Ассистент научился исправлять, а не только записывать">
+    <h2>Раньше ассистент только записывал. Теперь исправляет.</h2>
+<p>Пять месяцев он умел только заводить новое. А правят данные чаще, чем заводят.</p>
+<p>Теперь ему говорят как человеку: «бензин был 3 000, а не 2», «счёт по ГазТех оплатили», «было 3 часа, а не 4», «перенеси срок на 15 августа», «верни заказ из корзины».</p>
+<p>Перед каждым действием приходит карточка и называет его словами: «Записать расход 2 000 ₽ · бензин · заказ ГазТех». Пока не нажал, в базе ничего не менялось.</p>
+<p>Заодно нашёл, почему он думал долго. Сервер запоминает начало запроса и не считает его заново, а у меня третьей строкой стояла текущая дата с микросекундами: начало было новым в каждом сообщении, и десять тысяч токенов правил пересчитывались с нуля. Дата уехала в конец, из кэша теперь берётся 9 728 токенов из 9 850.</p>
+<p>Голос на телефоне тоже переехал на свой движок: речь считает сам телефон и не обрывается на паузах.</p>
+<p>1.4.21 уже в проде, Windows и Android. Установленное обновится само.</p>
+    <div class="cta">
+      <p><strong>МОНОЛИТ</strong> — учёт заказов, клиентов и денег одной фразой.
+      Windows и Android, бесплатная бета.</p>
+      <a class="btn" href="../download.html">Скачать</a>
+      <a class="btn ghost" href="https://t.me/monolithappru" target="_blank" rel="noopener">Читать канал</a>
+    </div>
+  </article>
+  <p class="back"><a href="index.html">← Все записи</a></p>
+</main>
+</body>
+</html>

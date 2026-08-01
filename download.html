@@ -103,6 +103,21 @@
                                  inset 0 1px 0 rgba(255,255,255,0.22); }
   .btn-indigo:active { transform:scale(0.99); }
   .btn-indigo svg { flex:none; }
+  /* Две платформы = две кнопки. Windows ведёт заливкой, Android рядом контуром:
+     установщик ставится в два клика, APK сперва просит разрешение телефона. */
+  .dl-buttons { display:flex; flex-wrap:wrap; gap:12px; }
+  .btn-outline { display:inline-flex; align-items:center; justify-content:center; gap:11px;
+                 max-width:100%; min-height:56px; padding:14px 28px; border-radius:28px;
+                 border:1px solid rgba(110,89,240,0.45); background:rgba(110,89,240,0.07);
+                 color:var(--text); font-weight:600; font-size:16px; text-decoration:none;
+                 transition:border-color .15s, background .15s,
+                            transform .15s cubic-bezier(.23,1,.32,1); }
+  .btn-outline:hover { border-color:rgba(139,120,255,0.75); background:rgba(110,89,240,0.13);
+                       transform:translateY(-1px); }
+  .btn-outline:active { transform:scale(0.99); }
+  .btn-outline svg { flex:none; color:var(--accent-bright); }
+  @media (max-width:520px) { .dl-buttons { flex-direction:column; }
+                             .dl-buttons a { width:100%; } }
   .dl-meta { margin-top:14px; color:var(--muted2); font-size:13.5px; line-height:1.7; }
   .dl-meta b { color:var(--muted); font-weight:600; }
 
@@ -178,39 +193,89 @@
   <p class="eyebrow">Бесплатная бета · Windows и Android</p>
   <h1>Скачать МОНОЛИТ</h1>
   <p class="lead"><strong>Поставь один раз — дальше приложение обновляется само.</strong>
-  Windows-версию можно скачать прямо здесь, Android — в RuStore или свежей сборкой по запросу.</p>
+  Windows-установщик и Android-файл лежат прямо здесь, в RuStore приложение тоже есть.</p>
 
   <div class="dl-hero">
     <div class="dl-hero-glow" aria-hidden="true"></div>
     <span class="badge-now">Актуальная версия</span>
-    <div class="dl-ver">1.4.17<small>beta · 28.07.2026</small></div>
-    <p class="dl-kicker">Ассистент без зацикливаний, голос на компьютере, свой центр уведомлений</p>
+    <div class="dl-ver">1.4.21<small>beta · 01.08.2026</small></div>
+    <p class="dl-kicker">Ассистент правит записанное, карточка перед каждым действием, свой голос на телефоне</p>
     <ul class="dl-feats">
-      <li><strong>Ассистент не ходит по кругу</strong>: вопрос не по теме получает ответ, черновик заказа не теряется</li>
-      <li><strong>Голос на компьютере</strong> — распознавание идёт локально, текст растёт по ходу речи</li>
-      <li><strong>Уведомления доходят</strong>, даже когда система глушит всплывающие окна</li>
+      <li><strong>Ассистент меняет данные, а не только заводит новые</strong>: сумма расхода, оплата счёта, перенос срока, часы работы, гонорар человека на заказе</li>
+      <li><strong>Карточка перед каждым действием</strong> — «Записать расход 2 000 ₽ · бензин · заказ ГазТех». В базу ничего не попадает, пока не нажал</li>
+      <li><strong>Голос на телефоне считает сам телефон</strong>: речь никуда не уходит и не обрывается на паузах</li>
     </ul>
-    <a class="btn-indigo" href="https://jkdrnaagjplpyhlsmxii.supabase.co/storage/v1/object/public/releases/windows/MONOLITH_Setup_1.4.17.exe" download>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
-      Скачать для Windows · 19,6 МБ
-    </a>
+    <div class="dl-buttons">
+      <a class="btn-indigo" href="https://jkdrnaagjplpyhlsmxii.supabase.co/storage/v1/object/public/releases/windows/MONOLITH_Setup_1.4.21.exe" download>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        Windows · 20 МБ
+      </a>
+      <a class="btn-outline" href="https://jkdrnaagjplpyhlsmxii.supabase.co/storage/v1/object/public/releases/android/app-arm64-v8a-release.apk" download>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+        Android · 35,7 МБ
+      </a>
+    </div>
     <p class="dl-meta">
-      Установщик <b>MONOLITH_Setup_1.4.17.exe</b>. Первый запуск: Windows покажет
+      Windows: установщик <b>MONOLITH_Setup_1.4.21.exe</b>, первый запуск покажет
       SmartScreen — нажми <b>«Подробнее» → «Выполнить в любом случае»</b>
-      (приложение новое и без платной подписи кода, это нормально).
+      (приложение новое и без платной подписи кода, это нормально).<br>
+      Android: файл <b>app-arm64-v8a-release.apk</b> для телефонов arm64 — это
+      почти все аппараты с 2018 года. Телефон спросит разрешение на установку
+      из файла, дальше приложение обновляется само.
     </p>
   </div>
 
   <div class="card">
-    <h2>Android</h2>
-    <p>Приложение в RuStore. Самую свежую сборку можно получить файлом по запросу — напиши основателю.</p>
+    <h2>Android из магазина</h2>
+    <p>В RuStore лежит версия 1.4.19 — магазин проверяет сборки дольше, чем мы выпускаем.
+    Файлом выше всегда свежее.</p>
     <div class="links">
       <a class="btn-ghost" href="https://www.rustore.ru/catalog/app/ru.monolithapp.assistant" target="_blank" rel="noopener">Открыть в RuStore&nbsp;→</a>
-      <a class="btn-ghost" href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">Свежая сборка · @sbphotoshoter</a>
+      <a class="btn-ghost" href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">Написать основателю · @sbphotoshoter</a>
     </div>
   </div>
 
-  <h2 class="rel-title">История версий</h2>
+  <h2 class="rel-title" id="history">История версий</h2>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.21</span><span class="rel-date">01.08.2026</span></div>
+    <ul class="rel-list">
+      <li>Ассистент правит записанное, а не только заводит новое: сумму и название расхода, оплату счёта и перенос срока, часы работы («было 3 часа, а не 4»), гонорар человека на заказе, возврат заказа из корзины. Плюс поля, которые раньше правились только руками: источник лида, контакт, налог, штат против подряда.</li>
+      <li>Перед каждым действием приходит карточка и называет его словами: «Записать расход 2 000 ₽ · бензин · заказ ГазТех». Пока не нажал — в базе ничего не изменилось.</li>
+      <li>Голос на телефоне считает сам телефон: речь не уходит на сторону и не обрывается на паузах, диктовать можно длинно. Движок докачивается по требованию, приложение от этого не потяжелело.</li>
+      <li>Ответы стали быстрее: сервер прогревается при открытии ассистента, разбор команды перестал каждый раз пересчитывать одни и те же правила. Если ответ идёт дольше пяти секунд, в пузыре видно, сколько именно секунд прошло.</li>
+      <li>На компьютере появилась команда «Очистить историю ассистента» — раньше она жила только в телефонном меню.</li>
+    </ul>
+  </div>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.20</span><span class="rel-date">01.08.2026</span></div>
+    <ul class="rel-list">
+      <li>Android-приложение похудело вдвое: 60 МБ → 35,5 МБ. Внутри лежал движок распознавания речи, который на телефоне не запускался ни разу — он нужен только компьютеру.</li>
+      <li>Один движок базы с шифрованием на все платформы: то, что раньше стояло только в Windows-сборке, приехало в общий код.</li>
+      <li>Приложение стало замечать собственные падения — даже те, после которых оно исчезает молча.</li>
+    </ul>
+  </div>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.19</span><span class="rel-date">31.07.2026</span></div>
+    <ul class="rel-list">
+      <li>«Центр важного» собран в одну карточку вместо девяти коробок подряд, сроки читаются одинаково на всех экранах.</li>
+      <li>Аварийные сообщения, «эта сборка» и состояние системы появились на телефоне — раньше это видел только компьютер.</li>
+      <li>Защита данных: резервная копия Android больше не уносит базу в облако Google открытой, открытый HTTP запрещён всему приложению, ключ аккаунта не лежит в буфере обмена вечно.</li>
+      <li>Заставка на простое и замок работают и на телефоне.</li>
+    </ul>
+  </div>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.18</span><span class="rel-date">30.07.2026</span></div>
+    <ul class="rel-list">
+      <li>Мобильная версия пересобрана целиком на языке компьютерной: досье клиента, карточка заказа, профиль, Пульс, Работа, Деньги, Клиенты, Команда.</li>
+      <li>Учёт времени на телефоне перестал молчать: сколько наработано, за неделю, честная ставка часа, куда ушло время.</li>
+      <li>Пульс получил периоды — сегодня, неделя, месяц, полгода — и разницу с прошлым периодом.</li>
+      <li>Обучение на телефоне стало интерактивным туром по живым экранам вместо стопки текстовых карточек.</li>
+    </ul>
+  </div>
 
   <div class="rel-item">
     <div class="rel-head"><span class="rel-ver">1.4.17</span><span class="rel-date">28.07.2026</span></div>
