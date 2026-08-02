@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МОНОЛИТ — возврат из ВКонтакте</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#08080B">
+<!--
+  СТРАНИЦА ВОЗВРАТА ПОСЛЕ ВХОДА ЧЕРЕЗ VK ID (№146).
+
+  ЗАЧЕМ ОНА ВООБЩЕ ЕСТЬ. На телефоне ВК возвращает человека прямо в приложение
+  своей схемой `vk<APP_ID>://`. На компьютере схему пришлось бы регистрировать в
+  системе установщиком, поэтому задумывался локальный приёмник
+  `http://127.0.0.1:8765/vk`. Кабинет VK ID его не принял: базовый домен не может
+  быть IP-адресом, а Redirect URL обязан быть https. Значит ВК возвращает браузер
+  СЮДА, а эта страница передаёт код дальше — в приложение, слушающее локальный порт.
+
+  ПОЧЕМУ ЭТО НЕ ДЫРА. Код авторизации одноразовый и без `code_verifier` (PKCE),
+  который знает только приложение, ни на что не меняется. Страница ничего не
+  хранит и никуда больше не отправляет: единственный адресат — 127.0.0.1, то есть
+  тот же компьютер. Ни один посторонний до него не достучится.
+-->
+<style>
+  body {
+    background: #08080B; color: #F5F5F7; margin: 0; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; text-align: center;
+  }
+  .card { max-width: 460px; padding: 32px 26px; }
+  .mark {
+    width: 64px; height: 64px; margin: 0 auto 22px; border-radius: 18px;
+    background: linear-gradient(160deg, #7B6BFF, #6E59F0);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; font-weight: 800; color: #fff;
+  }
+  h1 { font-size: 22px; margin: 0 0 10px; letter-spacing: -0.4px; }
+  p { color: #A0A3B4; font-size: 15px; line-height: 1.5; margin: 0 0 14px; }
+  .hint { color: #6A6C7C; font-size: 13px; }
+  .err { color: #FF5A6A; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="mark">М</div>
+    <h1 id="title">Заканчиваем вход…</h1>
+    <p id="text">Секунду, передаём подтверждение в приложение.</p>
+    <p class="hint" id="hint"></p>
+  </div>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var code = q.get('code');
+  var deviceId = q.get('device_id') || '';
+  var state = q.get('state') || '';
+  var error = q.get('error');
+  var title = document.getElementById('title');
+  var text = document.getElementById('text');
+  var hint = document.getElementById('hint');
+
+  function done(t, m, h, bad) {
+    title.textContent = t;
+    text.textContent = m;
+    text.className = bad ? 'err' : '';
+    hint.textContent = h || '';
+  }
+
+  if (error) {
+    done('Вход отменён', 'ВКонтакте вернул отказ: ' + error,
+         'Можно закрыть эту вкладку и попробовать снова из приложения.', true);
+    return;
+  }
+  if (!code) {
+    done('Здесь нечего показывать',
+         'На эту страницу приходят из ВКонтакте после входа в приложение МОНОЛИТ.',
+         'Если вы попали сюда случайно — просто закройте вкладку.');
+    return;
+  }
+
+  // Приложение слушает петлевой адрес. Запрос к 127.0.0.1 со страницы по https
+  // браузеры разрешают (локальный адрес считается доверенным), но сначала шлют
+  // preflight — приложение отвечает на него нужными заголовками.
+  fetch('http://127.0.0.1:8765/vk', {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+    body: JSON.stringify({ code: code, device_id: deviceId, state: state })
+  }).then(function (r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    done('Готово', 'Вернитесь в приложение МОНОЛИТ — вход завершается там.',
+         'Эту вкладку можно закрыть.');
+  }).catch(function () {
+    done('Приложение не отвечает',
+         'МОНОЛИТ должен быть запущен на этом же компьютере и ждать входа.',
+         'Откройте приложение и начните вход через ВКонтакте заново.', true);
+  });
+})();
+</script>
+</body>
+</html>
