@@ -180,6 +180,7 @@
     </a>
     <div class="nav-links" aria-label="Разделы сайта">
       <a class="nav-opt" href="index.html">Приложение</a>
+      <a href="pricing.html">Тарифы</a>
       <a href="download.html" aria-current="page">Скачать</a>
       <a href="blog/index.html">Дневник</a>
       <a href="product.html">Инвесторам</a>
@@ -198,25 +199,25 @@
   <div class="dl-hero">
     <div class="dl-hero-glow" aria-hidden="true"></div>
     <span class="badge-now">Актуальная версия</span>
-    <div class="dl-ver">1.4.21<small>beta · 01.08.2026</small></div>
-    <p class="dl-kicker">Ассистент правит записанное, карточка перед каждым действием, свой голос на телефоне</p>
+    <div class="dl-ver">1.4.23<small>beta · 13.08.2026</small></div>
+    <p class="dl-kicker">Личные дела со сроками и галочкой, заказ рядом с перепиской, долг команде по заказам</p>
     <ul class="dl-feats">
-      <li><strong>Ассистент меняет данные, а не только заводит новые</strong>: сумма расхода, оплата счёта, перенос срока, часы работы, гонорар человека на заказе</li>
-      <li><strong>Карточка перед каждым действием</strong> — «Записать расход 2 000 ₽ · бензин · заказ ГазТех». В базу ничего не попадает, пока не нажал</li>
-      <li><strong>Голос на телефоне считает сам телефон</strong>: речь никуда не уходит и не обрывается на паузах</li>
+      <li><strong>Личное дело можно закончить, а не стереть</strong>: срок ставится руками, галочка отменяется, дела разложены по срокам</li>
+      <li><strong>В переписке видно сам заказ</strong>: стадия, срок, деньги, этапы и кто на нём работает — не уходя в другой раздел</li>
+      <li><strong>Долг команде разложен по заказам</strong>, выплата отмечается прямо в строке</li>
     </ul>
     <div class="dl-buttons">
-      <a class="btn-indigo" href="https://jkdrnaagjplpyhlsmxii.supabase.co/storage/v1/object/public/releases/windows/MONOLITH_Setup_1.4.21.exe" download>
+      <a class="btn-indigo" href="https://jkdrnaagjplpyhlsmxii.supabase.co/storage/v1/object/public/releases/windows/MONOLITH_Setup_1.4.23.exe" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
         Windows · 20 МБ
       </a>
       <a class="btn-outline" href="https://jkdrnaagjplpyhlsmxii.supabase.co/storage/v1/object/public/releases/android/app-arm64-v8a-release.apk" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
-        Android · 35,7 МБ
+        Android · 36,6 МБ
       </a>
     </div>
     <p class="dl-meta">
-      Windows: установщик <b>MONOLITH_Setup_1.4.21.exe</b>, первый запуск покажет
+      Windows: установщик <b>MONOLITH_Setup_1.4.23.exe</b>, первый запуск покажет
       SmartScreen — нажми <b>«Подробнее» → «Выполнить в любом случае»</b>
       (приложение новое и без платной подписи кода, это нормально).<br>
       Android: файл <b>app-arm64-v8a-release.apk</b> для телефонов arm64 — это
@@ -236,6 +237,27 @@
   </div>
 
   <h2 class="rel-title" id="history">История версий</h2>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.23</span><span class="rel-date">13.08.2026</span></div>
+    <ul class="rel-list">
+      <li>Раздел «Личное» собран заново. У дела появился срок — раньше дату умел проставить только ассистент, и поправить его было нечем. Дело закрывается галочкой, и это можно отменить: до сих пор закончить дело можно было, только удалив его.</li>
+      <li>Дела разложены по срокам: просрочено, сегодня, на этой неделе, дальше. Наверху экрана — то, что требует ответа сегодня, а не длина всего списка. Пустой список предлагает четыре шаблона: «Купить», «Забрать», «Записаться», «Позвонить».</li>
+      <li>«Мой ритм»: часы за четыре недели и сколько дней прошло без единой отметки. Не «отдыхал», а именно «без отметок» — приложение не знает, работали вы без учёта или отдыхали, и не выдумывает.</li>
+      <li>«Куда уходит время»: заказы с долей и настоящей ставкой часа по каждому.</li>
+      <li>В переписке рядом видно сам заказ: стадия, срок, деньги, этапы и кто на нём работает. На телефоне то же самое свёрнутой строкой под шапкой.</li>
+      <li>Долг команде разложен по заказам, выплата отмечается прямо в строке и отменяется. Ассистент считает деньги по факту: на «кто мне должен» отвечает суммой из базы, а не бюджетами заказов.</li>
+      <li>Ушедшие подрядчики больше не стоят среди работающих, отменённые заказы не числятся в работе.</li>
+    </ul>
+  </div>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.22</span><span class="rel-date">03.08.2026</span></div>
+    <ul class="rel-list">
+      <li>Приложение снова рассказывает о себе: «Что нового» на Пульсе показывает, что изменилось в свежей версии.</li>
+      <li>На телефоне появился блок «Ждём на счёт» — обещанные платежи с датами и суммами.</li>
+    </ul>
+  </div>
 
   <div class="rel-item">
     <div class="rel-head"><span class="rel-ver">1.4.21</span><span class="rel-date">01.08.2026</span></div>
@@ -377,11 +399,14 @@
   <div class="footer">
     МОНОЛИТ — AI-оператор для вашего дела<br>
     <a href="index.html">Главная</a> ·
+    <a href="pricing.html">Тарифы</a> ·
     <a href="download.html" aria-current="page">Скачать</a> ·
     <a href="product.html">Инвесторам</a> ·
-    <a href="support.html">Поддержать</a> ·
+    <a href="offer.html">Оферта</a> ·
+    <a href="privacy.html">Конфиденциальность</a> ·
     <a href="https://t.me/monolithappru" target="_blank" rel="noopener">Канал разработки</a><br>
-    © 2026 МОНОЛИТ · Основатель — Савелий Бубнов · <a href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">@sbphotoshoter</a>
+    © 2026 МОНОЛИТ · Основатель — Савелий Бубнов · <a href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">@sbphotoshoter</a><br>
+    <span style="color:#6B6E80;font-size:13px;">{{SELLER_NAME}} · ИНН {{SELLER_INN}} · {{SELLER_ADDRESS}} · {{SELLER_EMAIL}} · {{SELLER_PHONE}}</span>
   </div>
 </main>
 </body>
