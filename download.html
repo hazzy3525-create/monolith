@@ -199,25 +199,25 @@
   <div class="dl-hero">
     <div class="dl-hero-glow" aria-hidden="true"></div>
     <span class="badge-now">Актуальная версия</span>
-    <div class="dl-ver">1.4.23<small>beta · 13.08.2026</small></div>
-    <p class="dl-kicker">Личные дела со сроками и галочкой, заказ рядом с перепиской, долг команде по заказам</p>
+    <div class="dl-ver">1.4.24<small>beta · 20.08.2026</small></div>
+    <p class="dl-kicker">Дело закрывается прямо из списка, ассистент отчитывается сделанным, числа перестали дублироваться</p>
     <ul class="dl-feats">
-      <li><strong>Личное дело можно закончить, а не стереть</strong>: срок ставится руками, галочка отменяется, дела разложены по срокам</li>
-      <li><strong>В переписке видно сам заказ</strong>: стадия, срок, деньги, этапы и кто на нём работает — не уходя в другой раздел</li>
-      <li><strong>Долг команде разложен по заказам</strong>, выплата отмечается прямо в строке</li>
+      <li><strong>«Готово» прямо в списке</strong>: этап заказа закрывается из «Центра важного», не открывая сам заказ, и отменяется одним нажатием</li>
+      <li><strong>Ассистент показывает, что он сделал</strong>: журнал по дням, каждая строка ведёт в заказ или карточку клиента</li>
+      <li><strong>Одно число — один раз</strong>: долг перестал считаться дважды, а суммы и сроки не обрываются многоточием при пустом месте рядом</li>
     </ul>
     <div class="dl-buttons">
-      <a class="btn-indigo" href="https://jkdrnaagjplpyhlsmxii.supabase.co/storage/v1/object/public/releases/windows/MONOLITH_Setup_1.4.23.exe" download>
+      <a class="btn-indigo" href="https://jkdrnaagjplpyhlsmxii.supabase.co/storage/v1/object/public/releases/windows/MONOLITH_Setup_1.4.24.exe" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
-        Windows · 20 МБ
+        Windows · 19,7 МБ
       </a>
       <a class="btn-outline" href="https://jkdrnaagjplpyhlsmxii.supabase.co/storage/v1/object/public/releases/android/app-arm64-v8a-release.apk" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
-        Android · 36,6 МБ
+        Android · 36,7 МБ
       </a>
     </div>
     <p class="dl-meta">
-      Windows: установщик <b>MONOLITH_Setup_1.4.23.exe</b>, первый запуск покажет
+      Windows: установщик <b>MONOLITH_Setup_1.4.24.exe</b>, первый запуск покажет
       SmartScreen — нажми <b>«Подробнее» → «Выполнить в любом случае»</b>
       (приложение новое и без платной подписи кода, это нормально).<br>
       Android: файл <b>app-arm64-v8a-release.apk</b> для телефонов arm64 — это
@@ -237,6 +237,18 @@
   </div>
 
   <h2 class="rel-title" id="history">История версий</h2>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.24</span><span class="rel-date">20.08.2026</span></div>
+    <ul class="rel-list">
+      <li>«Центр важного» собран заново: три колонки стали тремя вопросами — что сделать, на ком висит, что случилось. Этап заказа закрывается прямо из списка и отменяется, не открывая сам заказ.</li>
+      <li>«Сидели, но не отметили» показывает людей, а не длину списка: 21 строка свернулась в семь человек с раскрытием. Закрытые этапы оттуда пропали — раньше они там висели.</li>
+      <li>Экран «Ассистент» показывает, что ассистент сделал: журнал по дням, каждая строка ведёт в заказ или карточку клиента. Рядом — фразы с именами из вашей базы, нажатие кладёт текст в строку ввода и не уводит с экрана.</li>
+      <li>Наблюдения перестали повторять одно число дважды: долг старше 30 дней — часть просроченных обещаний, а не отдельная новость. Напоминание об оплате уходит тому, кто просрочил, а не самому крупному должнику.</li>
+      <li>Числа перестали обрываться многоточием, когда место рядом пустует: суммы на Пульсе, имя клиента, срок личного дела на компьютере и на телефоне. Подпись на графике больше не ложится поверх столбца.</li>
+      <li>Прибыль по заказу считается от гонорара, а не от бюджета клиента: на транзитных заказах она была завышена в разы.</li>
+    </ul>
+  </div>
 
   <div class="rel-item">
     <div class="rel-head"><span class="rel-ver">1.4.23</span><span class="rel-date">13.08.2026</span></div>
