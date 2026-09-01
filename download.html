@@ -199,28 +199,28 @@
   <div class="dl-hero">
     <div class="dl-hero-glow" aria-hidden="true"></div>
     <span class="badge-now">Актуальная версия</span>
-    <div class="dl-ver">1.4.30<small>beta · 01.09.2026</small></div>
-    <p class="dl-kicker">Окно больше не выходит за края экрана, а ассистент на компьютере не разваливается при переходе в него</p>
+    <div class="dl-ver">1.4.31<small>beta · 02.09.2026</small></div>
+    <p class="dl-kicker">Радар держит связь с Telegram, лента «Рынок» без мёртвых объявлений и не пустеет после переустановки</p>
     <ul class="dl-feats">
-      <li><strong>Окно по экрану</strong>: на ноутбуках и при системном масштабе 125–200% правый край с кнопками уезжал за кромку — теперь окно всегда внутри рабочей области</li>
-      <li><strong>Ассистент на месте</strong>: при переходе в раздел в приложении жили два экземпляра экрана, и часть интерфейса «переезжала» — из-за этого казалось, что ассистент не отвечает</li>
-      <li><strong>Заказ без лишних вопросов</strong>: телефон и источник ассистент называет, но заказ из-за них больше не держит</li>
+      <li><strong>Связь не теряется</strong>: радар сам восстанавливает Telegram после обрыва у провайдера, а кабинет отличает «нет связи» (нужен VPN) от «нет входа» (нужен код)</li>
+      <li><strong>Лента без старья</strong>: вакансии двухлетней давности с порталов больше не стоят выше свежих заявок, объявления старше 30 дней радар не берёт</li>
+      <li><strong>Лента не пустеет</strong>: после переустановки или восстановления из копии обмен перечитывается заново, а клик по фильтру стал в четыре раза быстрее</li>
     </ul>
     <div class="dl-buttons">
-      <a class="btn-indigo" href="https://github.com/monolithapp/monolithapp.github.io/releases/download/app-v1.4.30/MONOLITH_Setup_1.4.30.exe" download>
+      <a class="btn-indigo" href="https://github.com/monolithapp/monolithapp.github.io/releases/download/app-v1.4.31/MONOLITH_Setup_1.4.31.exe" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
-        Windows · 33,4 МБ
+        Windows · 33,5 МБ
       </a>
-      <a class="btn-outline" href="https://github.com/monolithapp/monolithapp.github.io/releases/download/app-v1.4.30/MONOLITH_1.4.30_arm64.apk" download>
+      <a class="btn-outline" href="https://github.com/monolithapp/monolithapp.github.io/releases/download/app-v1.4.31/MONOLITH_1.4.31_arm64.apk" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
         Android · 37,2 МБ
       </a>
     </div>
     <p class="dl-meta">
-      Windows: установщик <b>MONOLITH_Setup_1.4.30.exe</b>, первый запуск покажет
+      Windows: установщик <b>MONOLITH_Setup_1.4.31.exe</b>, первый запуск покажет
       SmartScreen — нажми <b>«Подробнее» → «Выполнить в любом случае»</b>
       (приложение новое и без платной подписи кода, это нормально).<br>
-      Android: файл <b>MONOLITH_1.4.30_arm64.apk</b> для телефонов arm64 — это
+      Android: файл <b>MONOLITH_1.4.31_arm64.apk</b> для телефонов arm64 — это
       почти все аппараты с 2018 года. Телефон спросит разрешение на установку
       из файла, дальше приложение обновляется само.
     </p>
@@ -237,6 +237,18 @@
   </div>
 
   <h2 class="rel-title" id="history">История версий</h2>
+
+  <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.31</span><span class="rel-date">02.09.2026</span></div>
+    <ul class="rel-list">
+      <li>Радар сам восстанавливает связь с Telegram после обрыва у провайдера: раньше он замолкал внутри работающей программы, а кабинет писал «вход не выполнен» там, где нужен был VPN.</li>
+      <li>Лента «Рынок» не поднимает наверх мёртвые объявления: старые вакансии с порталов больше не выигрывают у свежих заявок, объявления старше 30 дней радар не берёт вовсе.</li>
+      <li>После переустановки или восстановления из копии лента ШТАБа больше не пустая — обмен перечитывается заново.</li>
+      <li>Клик по фильтрам ленты в четыре раза быстрее; одинаковые объявления схлопнуты в одну строку «×N», пост с несколькими предложениями делится на отдельные карточки.</li>
+      <li>Кабинет ШТАБа показывает состояние каналов от самого радара: ВК и почта без ключа честно помечены, строка Telegram приходит с режимом и лимитами.</li>
+      <li>Витрина ШТАБа: доступ 5 000 ₽ в год.</li>
+    </ul>
+  </div>
 
   <div class="rel-item">
     <div class="rel-head"><span class="rel-ver">1.4.30</span><span class="rel-date">01.09.2026</span></div>
