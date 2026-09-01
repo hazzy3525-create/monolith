@@ -199,28 +199,28 @@
   <div class="dl-hero">
     <div class="dl-hero-glow" aria-hidden="true"></div>
     <span class="badge-now">Актуальная версия</span>
-    <div class="dl-ver">1.4.29<small>beta · 01.09.2026</small></div>
-    <p class="dl-kicker">Android снова обновляется, а данные не теряются даже при переустановке Windows</p>
+    <div class="dl-ver">1.4.30<small>beta · 01.09.2026</small></div>
+    <p class="dl-kicker">Окно больше не выходит за края экрана, а ассистент на компьютере не разваливается при переходе в него</p>
     <ul class="dl-feats">
-      <li><strong>Android в строю</strong>: файл не обновлялся с 1.4.26 — теперь свежая сборка есть на обеих платформах</li>
-      <li><strong>Данные не теряются</strong>: восстановление из копии заработало при включённом шифровании, а если база не открывается — приложение объясняет причину и предлагает выход, а не висит на заставке</li>
-      <li><strong>Заказ с телефона — полноценный</strong>: свой чат проекта, ставка налога, учёт в показателях</li>
+      <li><strong>Окно по экрану</strong>: на ноутбуках и при системном масштабе 125–200% правый край с кнопками уезжал за кромку — теперь окно всегда внутри рабочей области</li>
+      <li><strong>Ассистент на месте</strong>: при переходе в раздел в приложении жили два экземпляра экрана, и часть интерфейса «переезжала» — из-за этого казалось, что ассистент не отвечает</li>
+      <li><strong>Заказ без лишних вопросов</strong>: телефон и источник ассистент называет, но заказ из-за них больше не держит</li>
     </ul>
     <div class="dl-buttons">
-      <a class="btn-indigo" href="https://github.com/monolithapp/monolithapp.github.io/releases/download/app-v1.4.29/MONOLITH_Setup_1.4.29.exe" download>
+      <a class="btn-indigo" href="https://github.com/monolithapp/monolithapp.github.io/releases/download/app-v1.4.30/MONOLITH_Setup_1.4.30.exe" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
         Windows · 33,4 МБ
       </a>
-      <a class="btn-outline" href="https://github.com/monolithapp/monolithapp.github.io/releases/download/app-v1.4.29/MONOLITH_1.4.29_arm64.apk" download>
+      <a class="btn-outline" href="https://github.com/monolithapp/monolithapp.github.io/releases/download/app-v1.4.30/MONOLITH_1.4.30_arm64.apk" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
         Android · 37,2 МБ
       </a>
     </div>
     <p class="dl-meta">
-      Windows: установщик <b>MONOLITH_Setup_1.4.29.exe</b>, первый запуск покажет
+      Windows: установщик <b>MONOLITH_Setup_1.4.30.exe</b>, первый запуск покажет
       SmartScreen — нажми <b>«Подробнее» → «Выполнить в любом случае»</b>
       (приложение новое и без платной подписи кода, это нормально).<br>
-      Android: файл <b>MONOLITH_1.4.29_arm64.apk</b> для телефонов arm64 — это
+      Android: файл <b>MONOLITH_1.4.30_arm64.apk</b> для телефонов arm64 — это
       почти все аппараты с 2018 года. Телефон спросит разрешение на установку
       из файла, дальше приложение обновляется само.
     </p>
@@ -239,6 +239,17 @@
   <h2 class="rel-title" id="history">История версий</h2>
 
   <div class="rel-item">
+    <div class="rel-head"><span class="rel-ver">1.4.30</span><span class="rel-date">01.09.2026</span></div>
+    <ul class="rel-list">
+      <li>Списки выбора (категория расхода и другие) снова с подложкой: пункты меню ложились поверх полей формы.</li>
+      <li>Окно не выходит за края экрана. На ноутбуках и при системном масштабе 125–200% его правый край с кнопками уезжал за кромку, а часть интерфейса была не видна.</li>
+      <li>Экран «Ассистент» на компьютере больше не разваливается при переходе в него: на время перехода в приложении жили два экземпляра экрана, и часть интерфейса могла «переехать».</li>
+      <li>Заказ создаётся без телефона и источника: ассистент называет, чего не хватает, но держат заказ только имя заказчика и сумма.</li>
+      <li>Если разбор оборвался (приложение закрыли раньше ответа), лента честно говорит об этом при следующем открытии.</li>
+    </ul>
+  </div>
+
+  <div class="rel-item">
     <div class="rel-head"><span class="rel-ver">1.4.29</span><span class="rel-date">01.09.2026</span></div>
     <ul class="rel-list">
       <li>Android снова обновляется: файл на этой странице не обновлялся с 1.4.26, теперь свежая сборка есть на обеих платформах.</li>
@@ -250,7 +261,8 @@
     </ul>
   </div>
 
-  <div class="rel-item">
+  <div class="rel-item">
+
     <div class="rel-head"><span class="rel-ver">1.4.28</span><span class="rel-date">31.08.2026</span></div>
     <ul class="rel-list">
       <li>Ассистент больше не молчит: вылечена ошибка, из-за которой готовый ответ не показывался на экране, а сервис разбора прогревается заранее — первый запрос идёт быстрее. Пока ассистент думает, он словами говорит, что происходит.</li>
@@ -467,7 +479,7 @@
     <a href="privacy.html">Конфиденциальность</a> ·
     <a href="https://t.me/monolithappru" target="_blank" rel="noopener">Канал разработки</a><br>
     © 2026 МОНОЛИТ · Основатель — Савелий Бубнов · <a href="https://t.me/sbphotoshoter" target="_blank" rel="noopener">@sbphotoshoter</a><br>
-    <span style="color:#6B6E80;font-size:13px;">{{SELLER_NAME}} · ИНН {{SELLER_INN}} · {{SELLER_ADDRESS}} · {{SELLER_EMAIL}} · {{SELLER_PHONE}}</span>
+    <span style="color:#6B6E80;font-size:13px;">Самозанятый Сальманов Артём Гранитович · ИНН 861713780411 · ХМАО-Югра, Сургутский район, п. Нижнесортымский</span>
   </div>
 </main>
 </body>
